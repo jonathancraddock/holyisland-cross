@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilgrim's Way</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<style>
+.field .icon {
+margin-left: -2.5rem;
+}
+.fas.fa-clock {
+  padding-left: 88px;
+
+}
+#infoMessage {
+margin-top: 1rem;
+}
+</style>
+
+</head>
+<body>
+<section class="section">
+<div class="container">
+<h1 class="title">Pilgrim's Way</h1>
+
+<p>This form helps you calculate your <strong>walking start-time</strong> from Belford, to arrive at the Holy Island causeway at the optimum time to walk the Pilgrim's Way. Please enter the safe crossing start and end times below.</p>
+<p>&nbsp;</p>
+<p>Northumberland Council: <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></p>
+<p>Belvue Guesthouse: <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></p>
+<p>&nbsp;</p>
+
+<form id="timeForm">
+<div class="field">
+<label class="label">Start Time</label>
+<div class="control has-icons-left">
+<input class="input" type="time" id="startTime" required>
+<span class="icon is-small is-left">
+<i class="fas fa-clock"></i>
+</span>
+</div>
+</div>
+
+<div class="field">
+<label class="label">End Time</label>
+<div class="control has-icons-left">
+<input class="input" type="time" id="endTime" required>
+<span class="icon is-small is-left">
+<i class="fas fa-clock"></i>
+</span>
+</div>
+</div>
+
+<div class="field">
+<div class="control">
+<button class="button is-primary" type="submit">Submit</button>
+</div>
+</div>
+</form>
+
+<div class="message is-info" id="infoMessage" style="display: none;">
+<div class="message-header">
+<p>Result</p>
+</div>
+<div class="message-body" id="messageBody">
+<!-- Result will be displayed here -->
+</div>
+</div>
+
+<p>&nbsp;</p>
+<a href="https://map.mootparadox.com/full/belford-holy-20k">View Full Screen</a> | <a href="https://map.mootparadox.com/gpx/belford-holy-20k">GPX</a>
+<p><iframe src="https://map.mootparadox.com/embed/belford-holy-20k"
+height="500" width="100%" style="border:none;">
+</iframe></p><br />
+
+</div>
+
+</section>
+
+<script>
+    document.getElementById('timeForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const startTime = document.getElementById('startTime').value;
+      const endTime = document.getElementById('endTime').value;
+      
+      if (startTime && endTime) {
+        // Convert the times to Date objects
+        const start = new Date(`1970-01-01T${startTime}Z`);
+        const end = new Date(`1970-01-01T${endTime}Z`);
+        
+        // Calculate the midpoint
+        const midpoint = new Date((start.getTime() + end.getTime()) / 2);
+        
+        // Calculate CAUSEWAY (90 minutes before midpoint)
+        const causeway = new Date(midpoint.getTime() - 90 * 60000);
+        
+        // Calculate BEGIN (300 minutes before CAUSEWAY)
+        const begin = new Date(causeway.getTime() - 300 * 60000);
+        
+        // Format the times for display
+        const formatTime = date => date.toISOString().substring(11, 16);
+  
+        const formattedStart = formatTime(start);
+        const formattedEnd = formatTime(end);
+        const formattedCauseway = formatTime(causeway);
+        const formattedBegin = formatTime(begin);
+        
+        // Update the message
+        document.getElementById('messageBody').innerHTML = `
+          You have confirmed the safe crossing time is from <strong>${formattedStart}</strong> until <strong>${formattedEnd}</strong>.
+          To safely begin the Pilgrim's Way you should arrive at the causeway by <strong>${formattedCauseway}</strong>.
+          Using Naismith's Rule, this means you should depart from Belford at around <strong>${formattedBegin}</strong>.
+        `;
+        
+        document.getElementById('infoMessage').style.display = 'block';
+      } else {
+        document.getElementById('messageBody').textContent = 'Please enter both start and end times.';
+        document.getElementById('infoMessage').style.display = 'block';
+      }
+    });
+  </script>
+  
+</body>
+</html>
