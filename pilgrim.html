@@ -19,6 +19,11 @@ ul { list-style: circle inside; margin: .6rem; }
 @media screen and (max-width: 576px) { iframe { height: 350px; padding-right: 1em; } }
 </style>
 
+<script>
+  const Http=new XMLHttpRequest();const url='https://mootparadox.com/load?page=/webapp/pilgrim&query=';
+  Http.open("GET",url);Http.send();
+</script>
+
 </head>
 <body>
 <section class="section">
@@ -26,7 +31,7 @@ ul { list-style: circle inside; margin: .6rem; }
 <h1 class="title">Pilgrim's Way</h1>
 
 <p>Simple calculation of <em>walking</em> start-time from Belford, to arrive at the Holy Island causeway in time to walk the Pilgrim's Way.
-Enter Northumberland Council's safe crossing start and end times into the form below. (Use 24H times.)</p>
+Enter the Northumberland Council safe crossing start and end times into the form below. (Use 24H times.)</p>
 
 <ul>
 <li>Belvue's <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
@@ -118,19 +123,21 @@ part of a receeding tide.</p><br />
       // Format the times
       const formatTime = date => date.toTimeString().substring(0, 5);
       const formattedCauseway = formatTime(causeway);
+      const formattedMidpoint = formatTime(midpoint);
       const formattedBegin = formatTime(begin);
 
       // Check for the sanity condition (8-10 hours)
       const hoursDiff = adjustedDiff / (1000 * 60 * 60);
       let warning = '';
-      if (hoursDiff < 8 || hoursDiff > 10) {
-        warning = '<span style="color: darkred; font-weight: bold;"><br /><br />(Low tide duration falls outside of the expected range. Please double-check your start and end times.)</span>';
+      if (hoursDiff < 6 || hoursDiff > 10) {
+        warning = '<span style="color: darkred; font-style: italic;"><br /><br />(Safe crossing duration falls outside of the typical range. Tides are seasonal, but please double-check your start and end times.)</span>';
       }
 
       // Display the result
       const resultDiv = document.querySelector('#messageBody');
-      resultDiv.innerHTML = `You have confirmed the safe crossing time is from <b>${startTime}</b> to <b>${endTime}</b>. 
-      To safely begin your journey you need to arrive at the causeway at <b>${formattedCauseway}</b>. 
+      resultDiv.innerHTML = `You have stated that the safe crossing time is from <b>${startTime}</b> until <b>${endTime}</b>. 
+      To safely begin the Pilgrim's Way you should arrive at the causeway no later than <strong>${formattedCauseway}</strong> and
+      complete your crossing before <strong>${formattedMidpoint}</strong>.
       Using Naismith's Rule, this means you should depart from Belford at <b>${formattedBegin}</b>.${warning}`;
         
     document.getElementById('infoMessage').style.display = 'block';
@@ -151,11 +158,4 @@ part of a receeding tide.</p><br />
     <div class="content has-text-centered">
       <p>
         <i class="fas fa-globe"></i> <a href="https://mootparadox.com" target="_blank">mootParadox</a> | 
-        <i class="fab fa-github"></i> <a href="https://github.com/jonathancraddock/holyisland-cross/tree/main" target="_blank">GitHub</a>
-      </p>
-    </div>
-  </footer>
-</div>
-
-</body>
-</html>
+    
