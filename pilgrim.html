@@ -21,20 +21,19 @@ ul { list-style: circle inside; margin: .6rem; }
 <div class="container">
 <h1 class="title">Pilgrim's Way</h1>
 
-<p>Simple calculation of <strong>walking start-time</strong> from Belford, to arrive at the Holy Island causeway in time to walk the Pilgrim's Way.
-Please enter the safe crossing start and end times into the form below.</p>
+<p>Simple calculation of <em>walking</em> start-time from Belford, to arrive at the Holy Island causeway in time to walk the Pilgrim's Way.
+Enter Northumberland Council's safe crossing start and end times into the form below.</p>
 
 <ul>
-<li>Belvue <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
-<li>Check for safe <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></li>
-<li>Use the form below to calculate start time</li>
-<li>Check the <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/" target="_blank">weather</a></li>
+<li>Belvue's <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
+<li>Holy Island <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></li>
+<li>Yr.No/En <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/" target="_blank">weather foecast</a></li>
 <li>Croft Cabs (Belford): 07803 496 278</li>
 </ul>
 
 <form id="timeForm">
 <div class="field">
-<label class="label">Start Time</label>
+<label class="label">Safe crossing time start:</label>
 <div class="control has-icons-left">
 <input class="input" type="time" id="startTime" required>
 <span class="icon is-small is-left">
@@ -44,7 +43,7 @@ Please enter the safe crossing start and end times into the form below.</p>
 </div>
 
 <div class="field">
-<label class="label">End Time</label>
+<label class="label">Safe crossing time end:</label>
 <div class="control has-icons-left">
 <input class="input" type="time" id="endTime" required>
 <span class="icon is-small is-left">
@@ -55,7 +54,7 @@ Please enter the safe crossing start and end times into the form below.</p>
 
 <div class="field">
 <div class="control">
-<button class="button is-primary" type="submit">Submit</button>
+<button class="button is-primary" type="submit">Calculate</button>
 </div>
 </div>
 </form>
@@ -65,7 +64,7 @@ Please enter the safe crossing start and end times into the form below.</p>
 <p>Result</p>
 </div>
 <div class="message-body" id="messageBody">
-<!-- Result will be displayed here -->
+<!-- Result goes here -->
 </div>
 </div>
 
@@ -74,6 +73,10 @@ Please enter the safe crossing start and end times into the form below.</p>
 <p><iframe src="https://map.mootparadox.com/embed/belford-holy-20k"
 height="500" width="100%" style="border:none;">
 </iframe></p><br />
+
+<p>This route follows St Oswald's Way from the vilage of Belford, Northumberland. It includes an (optional) diversion onto St Cuthbert's Way,
+to visit his cave. Timing for this route is important, since the Pilgrim's Way crossing over Holy Island Sands must be made during the latter
+part of a receeding tide.</p><br />
 
 </div>
 
@@ -133,7 +136,8 @@ height="500" width="100%" style="border:none;">
   <footer class="footer has-background-light">
     <div class="content has-text-centered">
       <p>
-        <strong>&copy;</strong> 2024 by <a href="https://mootparadox.com" target="_blank">mootParadox</a>.
+        <i class="fas fa-globe"></i> <a href="https://mootparadox.com" target="_blank">mootParadox</a> | 
+        <i class="fab fa-github"></i> <a href="https://github.com/jonathancraddock/holyisland-cross/tree/main" target="_blank">GitHub</a>
       </p>
     </div>
   </footer>
