@@ -5,6 +5,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pilgrim's Way</title>
+
+<link rel="icon" type="image/png" href="/user/themes/mootparadox/images/favicon.png">
+<link rel="canonical" href="https://mootparadox.com/webapp/pilgrim">
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -22,12 +26,12 @@ ul { list-style: circle inside; margin: .6rem; }
 <h1 class="title">Pilgrim's Way</h1>
 
 <p>Simple calculation of <em>walking</em> start-time from Belford, to arrive at the Holy Island causeway in time to walk the Pilgrim's Way.
-Enter Northumberland Council's safe crossing start and end times into the form below.</p>
+Enter Northumberland Council's safe crossing start and end times into the form below. (Use 24H times.)</p>
 
 <ul>
 <li>Belvue's <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
 <li>Holy Island <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></li>
-<li>Yr.No/En <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/" target="_blank">weather foecast</a></li>
+<li>Yr.No/En <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/" target="_blank">weather forecast</a></li>
 <li>Croft Cabs (Belford): 07803 496 278</li>
 </ul>
 
@@ -83,54 +87,64 @@ part of a receeding tide.</p><br />
 </section>
 
 <script>
-    document.getElementById('timeForm').addEventListener('submit', function(event) {
-      event.preventDefault();
-      
-      const startTime = document.getElementById('startTime').value;
-      const endTime = document.getElementById('endTime').value;
-      
-      if (startTime && endTime) {
-        // Convert the times to Date objects
-        const start = new Date(`1970-01-01T${startTime}Z`);
-        const end = new Date(`1970-01-01T${endTime}Z`);
-        
-        // Calculate the midpoint
-        const midpoint = new Date((start.getTime() + end.getTime()) / 2);
-        
-        // Calculate CAUSEWAY (90 minutes before midpoint)
-        const causeway = new Date(midpoint.getTime() - 90 * 60000);
-        
-        // Calculate BEGIN (300 minutes before CAUSEWAY)
-        const begin = new Date(causeway.getTime() - 300 * 60000);
-        
-        // Format the times for display
-        const formatTime = date => date.toISOString().substring(11, 16);
-  
-        const formattedStart = formatTime(start);
-        const formattedEnd = formatTime(end);
-        const formattedCauseway = formatTime(causeway);
-        const formattedMidpoint = formatTime(midpoint);
-        const formattedBegin = formatTime(begin);
-        
-        // Update the message
-        document.getElementById('messageBody').innerHTML = `
-          You have stated that the safe crossing time is from <strong>${formattedStart}</strong> until <strong>${formattedEnd}</strong>.
-          To safely begin the Pilgrim's Way you should arrive at the causeway no later than <strong>${formattedCauseway}</strong> and
-          complete your crossing before <strong>${formattedMidpoint}</strong>. 
-          Using Naismith's Rule, this means you should depart from Belford at around <strong>${formattedBegin}</strong>.
-        `;
-        
-        document.getElementById('infoMessage').style.display = 'block';
-        
-        // Scroll to the start time input field
-        document.getElementById('startTime').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        
-      } else {
-        document.getElementById('messageBody').textContent = 'Please enter both start and end times.';
-        document.getElementById('infoMessage').style.display = 'block';
+  document.querySelector('#timeForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    console.log('calculate times');
+
+    const startTime = document.querySelector('#startTime').value;
+    const endTime = document.querySelector('#endTime').value;
+
+    if (startTime && endTime) {
+      const start = new Date(`1970-01-01T${startTime}:00`);
+      const end = new Date(`1970-01-01T${endTime}:00`);
+
+      // Calculate the difference in milliseconds
+      const diff = end - start;
+
+      // Check if the end time is before the start time and adjust the date accordingly
+      if (diff < 0) {
+        end.setDate(end.getDate() + 1);
       }
-    });
-  </script>
+
+      // Recalculate the difference after adjusting the date
+      const adjustedDiff = end - start;
+
+      // Calculate minutes
+      const diffMinutes = Math.floor(adjustedDiff / (1000 * 60));
+      const midpoint = new Date(start.getTime() + adjustedDiff / 2);
+      const causeway = new Date(midpoint.getTime() - 90 * 60 * 1000);
+      const begin = new Date(causeway.getTime() - 300 * 60 * 1000);
+
+      // Format the times
+      const formatTime = date => date.toTimeString().substring(0, 5);
+      const formattedCauseway = formatTime(causeway);
+      const formattedBegin = formatTime(begin);
+
+      // Check for the sanity condition (8-10 hours)
+      const hoursDiff = adjustedDiff / (1000 * 60 * 60);
+      let warning = '';
+      if (hoursDiff < 8 || hoursDiff > 10) {
+        warning = '<span style="color: darkred; font-weight: bold;"><br /><br />(Low tide duration falls outside of the expected range. Please double-check your start and end times.)</span>';
+      }
+
+      // Display the result
+      const resultDiv = document.querySelector('#messageBody');
+      resultDiv.innerHTML = `You have confirmed the safe crossing time is from <b>${startTime}</b> to <b>${endTime}</b>. 
+      To safely begin your journey you need to arrive at the causeway at <b>${formattedCauseway}</b>. 
+      Using Naismith's Rule, this means you should depart from Belford at <b>${formattedBegin}</b>.${warning}`;
+        
+    document.getElementById('infoMessage').style.display = 'block';
+    
+    // Scroll to the start time input field
+    document.getElementById('startTime').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    
+  } else {
+    document.getElementById('messageBody').textContent = 'Please enter both start and end times.';
+    document.getElementById('infoMessage').style.display = 'block';
+  }
+});
+</script>
+
 
 <div class="footer-bar">
   <footer class="footer has-background-light">
