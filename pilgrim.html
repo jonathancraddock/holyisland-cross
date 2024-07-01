@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -8,16 +9,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
-.field .icon {
-margin-left: -2.5rem;
-}
-.fas.fa-clock {
-  padding-left: 88px;
-
-}
-#infoMessage {
-margin-top: 1rem;
-}
+.section { padding: 1rem 1.5rem; }
+ul { list-style: circle inside; margin: .6rem; }
+#infoMessage { margin-top: 1rem; }
+@media screen and (max-width: 576px) { iframe { height: 350px; padding-right: 1em; } }
 </style>
 
 </head>
@@ -26,11 +21,16 @@ margin-top: 1rem;
 <div class="container">
 <h1 class="title">Pilgrim's Way</h1>
 
-<p>This form helps you calculate your <strong>walking start-time</strong> from Belford, to arrive at the Holy Island causeway at the optimum time to walk the Pilgrim's Way. Please enter the safe crossing start and end times below.</p>
-<p>&nbsp;</p>
-<p>Northumberland Council: <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></p>
-<p>Belvue Guesthouse: <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></p>
-<p>&nbsp;</p>
+<p>Simple calculation of <strong>walking start-time</strong> from Belford, to arrive at the Holy Island causeway in time to walk the Pilgrim's Way.
+Please enter the safe crossing start and end times into the form below.</p>
+
+<ul>
+<li>Belvue <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
+<li>Check for safe <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></li>
+<li>Use the form below to calculate start time</li>
+<li>Check the <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/" target="_blank">weather</a></li>
+<li>Croft Cabs (Belford): 07803 496 278</li>
+</ul>
 
 <form id="timeForm">
 <div class="field">
@@ -106,22 +106,38 @@ height="500" width="100%" style="border:none;">
         const formattedStart = formatTime(start);
         const formattedEnd = formatTime(end);
         const formattedCauseway = formatTime(causeway);
+        const formattedMidpoint = formatTime(midpoint);
         const formattedBegin = formatTime(begin);
         
         // Update the message
         document.getElementById('messageBody').innerHTML = `
-          You have confirmed the safe crossing time is from <strong>${formattedStart}</strong> until <strong>${formattedEnd}</strong>.
-          To safely begin the Pilgrim's Way you should arrive at the causeway by <strong>${formattedCauseway}</strong>.
+          You have stated that the safe crossing time is from <strong>${formattedStart}</strong> until <strong>${formattedEnd}</strong>.
+          To safely begin the Pilgrim's Way you should arrive at the causeway no later than <strong>${formattedCauseway}</strong> and
+          complete your crossing before <strong>${formattedMidpoint}</strong>. 
           Using Naismith's Rule, this means you should depart from Belford at around <strong>${formattedBegin}</strong>.
         `;
         
         document.getElementById('infoMessage').style.display = 'block';
+        
+        // Scroll to the start time input field
+        document.getElementById('startTime').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        
       } else {
         document.getElementById('messageBody').textContent = 'Please enter both start and end times.';
         document.getElementById('infoMessage').style.display = 'block';
       }
     });
   </script>
-  
+
+<div class="footer-bar">
+  <footer class="footer has-background-light">
+    <div class="content has-text-centered">
+      <p>
+        <strong>&copy;</strong> 2024 by <a href="https://mootparadox.com" target="_blank">mootParadox</a>.
+      </p>
+    </div>
+  </footer>
+</div>
+
 </body>
 </html>
