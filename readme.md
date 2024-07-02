@@ -8,6 +8,11 @@ Link -> https://mootparadox.com/webapp/pilgrim
 
 ## Resources
 
+Admiralty "Easy Tide"
+* https://easytide.admiralty.co.uk/?PortID=0208
+
+*Interesting to note that the Admiralty low-tide typically shows as approx 25-30 mins before the "midpoint" as calculated from the causeway safe-crossing times.*
+
 Northumberland Council Tide Times
 * https://holyislandcrossingtimes.northumberland.gov.uk/
 
