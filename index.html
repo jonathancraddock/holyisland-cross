@@ -25,8 +25,7 @@
 <div class="container">
 <h1 class="title">Pilgrim's Way</h1>
 
-<p>Simple calculation of <em>walking</em> start-time from Belford, to arrive at the Holy Island causeway in time to walk the Pilgrim's Way.
-Enter the Northumberland Council safe crossing start and end times into the form below. (Use 24H times.)</p>
+<p>Enter the safe crossing start and end times into the form below to calculate the walking start-time from Belford. This will ensure that you arrive at the Holy Island causeway in time to walk the Pilgrim's Way. Please use 24-hour time format.</p>
 
 <ul>
 <li>Belvue's <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
@@ -78,75 +77,11 @@ Enter the Northumberland Council safe crossing start and end times into the form
 height="500" width="100%" style="border:none;">
 </iframe></p><br />
 
-<p>This route follows St Oswald's Way from the vilage of Belford, Northumberland. It includes an (optional) diversion onto St Cuthbert's Way,
-to visit his cave. Timing for this route is important, since the Pilgrim's Way crossing over Holy Island Sands must be made during the latter
-part of a receeding tide.</p><br />
+<p>This route follows St Oswald's Way from the village of Belford, Northumberland. It includes an optional diversion onto St Cuthbert's Way to visit his cave. Timing for this route is crucial as the Pilgrim's Way crossing over Holy Island Sands must be made during the latter part of a receding tide.</p><br />
 
 </div>
 
 </section>
-
-<script>
-  document.querySelector('#timeForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    console.log('calculate times');
-
-    const startTime = document.querySelector('#startTime').value;
-    const endTime = document.querySelector('#endTime').value;
-
-    if (startTime && endTime) {
-      const start = new Date(`1970-01-01T${startTime}:00`);
-      const end = new Date(`1970-01-01T${endTime}:00`);
-
-      // Calculate the difference in milliseconds
-      const diff = end - start;
-
-      // Check if the end time is before the start time and adjust the date accordingly
-      if (diff < 0) {
-        end.setDate(end.getDate() + 1);
-      }
-
-      // Recalculate the difference after adjusting the date
-      const adjustedDiff = end - start;
-
-      // Calculate minutes
-      const diffMinutes = Math.floor(adjustedDiff / (1000 * 60));
-      const midpoint = new Date(start.getTime() + adjustedDiff / 2);
-      const causeway = new Date(midpoint.getTime() - 90 * 60 * 1000);
-      const begin = new Date(causeway.getTime() - 300 * 60 * 1000);
-
-      // Format the times
-      const formatTime = date => date.toTimeString().substring(0, 5);
-      const formattedCauseway = formatTime(causeway);
-      const formattedMidpoint = formatTime(midpoint);
-      const formattedBegin = formatTime(begin);
-
-      // Check for the sanity condition (8-10 hours)
-      const hoursDiff = adjustedDiff / (1000 * 60 * 60);
-      let warning = '';
-      if (hoursDiff < 6 || hoursDiff > 10) {
-        warning = '<span style="color: darkred; font-style: italic;"><br /><br />(Safe crossing duration falls outside of the typical range. Tides are seasonal, but please double-check your start and end times.)</span>';
-      }
-
-      // Display the result
-      const resultDiv = document.querySelector('#messageBody');
-      resultDiv.innerHTML = `You have stated that the safe crossing time is from <b>${startTime}</b> until <b>${endTime}</b>. 
-      To safely begin the Pilgrim's Way you should arrive at the causeway no later than <strong>${formattedCauseway}</strong> and
-      complete your crossing before <strong>${formattedMidpoint}</strong>.
-      Using Naismith's Rule, this means you should depart from Belford at <b>${formattedBegin}</b>.${warning}`;
-        
-    document.getElementById('infoMessage').style.display = 'block';
-    
-    // Scroll to the start time input field
-    document.getElementById('startTime').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    
-  } else {
-    document.getElementById('messageBody').textContent = 'Please enter both start and end times.';
-    document.getElementById('infoMessage').style.display = 'block';
-  }
-});
-</script>
-
 
 <div class="footer-bar">
   <footer class="footer has-background-light">
