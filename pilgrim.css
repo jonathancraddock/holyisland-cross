@@ -1,0 +1,19 @@
+.section { 
+    padding: 1rem 1.5rem; 
+}
+
+ul { 
+    list-style: circle inside; margin: .6rem; 
+}
+
+#infoMessage { 
+    margin-top: 1rem; 
+}
+
+/* Mobile Width */
+@media screen and (max-width: 576px) { 
+    
+    iframe { height: 350px; padding-right: 1em; 
+    } 
+
+}
