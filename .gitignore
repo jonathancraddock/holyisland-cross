@@ -1,5 +1,6 @@
 # Project planning
 CLAUDE.md
+filters.md
 
 # OS generated files
 .DS_Store
@@ -33,6 +34,9 @@ package-lock.json
 # Build outputs (if you add build tools later)
 dist/
 build/
+
+# Source Data Files
+sourcedata/
 
 # Temporary files
 *.tmp
