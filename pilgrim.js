@@ -1,6 +1,7 @@
 // Function to load tide data and populate time fields
 async function loadTideData(selectedDate) {
     try {
+        console.log('Loading tide data for date:', selectedDate.toISOString().split('T')[0]);
         const response = await fetch('./data/tides.json');
         if (!response.ok) {
             throw new Error('Tide data not available');
@@ -8,16 +9,20 @@ async function loadTideData(selectedDate) {
         
         const tideData = await response.json();
         const dateStr = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+        console.log('Looking for tide data for:', dateStr);
         
         // Look for tide data for the selected date
         if (tideData.data && tideData.data[dateStr] && tideData.data[dateStr].length > 0) {
             // Get the first available safe crossing time for the day
             const firstCrossing = tideData.data[dateStr][0];
+            console.log('Found crossing data:', firstCrossing);
             
             document.getElementById('startTime').value = firstCrossing.start;
             document.getElementById('endTime').value = firstCrossing.end;
             
             return true;
+        } else {
+            console.log('No tide data found for', dateStr);
         }
         
         return false;
@@ -35,12 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Try to load tide data for today
     loadTideData(today);
-});
-
-// Add event listener for date changes
-document.getElementById('crossingDate').addEventListener('change', function(event) {
-    const selectedDate = new Date(event.target.value + 'T00:00:00');
-    loadTideData(selectedDate);
+    
+    // Add event listener for date changes
+    dateInput.addEventListener('change', function(event) {
+        const selectedDate = new Date(event.target.value + 'T00:00:00');
+        loadTideData(selectedDate);
+    });
 });
 
 document.querySelector('#timeForm').addEventListener('submit', function(event) {
