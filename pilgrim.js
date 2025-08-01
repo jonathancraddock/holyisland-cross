@@ -80,6 +80,60 @@ async function loadTideData(selectedDate) {
     }
 }
 
+// Function to display daylight information
+function displayDaylightInfo(photographyData) {
+    const daylightDiv = document.getElementById('daylightInfo');
+    
+    if (!photographyData) {
+        daylightDiv.innerHTML = '';
+        return;
+    }
+    
+    daylightDiv.innerHTML = `
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2" class="has-text-centered">Daylight Information</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Sunrise</strong></td>
+                    <td>${photographyData.sunrise}</td>
+                </tr>
+                <tr>
+                    <td><strong>Sunset</strong></td>
+                    <td>${photographyData.sunset}</td>
+                </tr>
+                <tr>
+                    <td><strong>Dawn</strong></td>
+                    <td>${photographyData.dawn}</td>
+                </tr>
+                <tr>
+                    <td><strong>Dusk</strong></td>
+                    <td>${photographyData.dusk}</td>
+                </tr>
+                <tr>
+                    <td><strong>Day Length</strong></td>
+                    <td>${photographyData.day_length}</td>
+                </tr>
+                <tr>
+                    <td><strong>Solar Noon</strong></td>
+                    <td>${photographyData.solar_noon}</td>
+                </tr>
+                <tr>
+                    <td><strong>Golden Hour (Morning)</strong></td>
+                    <td>${photographyData.golden_hour_morning}</td>
+                </tr>
+                <tr>
+                    <td><strong>Golden Hour (Evening)</strong></td>
+                    <td>${photographyData.golden_hour_evening}</td>
+                </tr>
+            </tbody>
+        </table>
+    `;
+}
+
 // Function to update crossing results table
 function updateCrossingResults() {
     const resultsDiv = document.getElementById('crossingResults');
@@ -92,6 +146,7 @@ function updateCrossingResults() {
                 </div>
             </div>
         `;
+        displayDaylightInfo(null);
         return;
     }
     
@@ -156,6 +211,13 @@ function updateCrossingResults() {
     `;
     
     resultsDiv.innerHTML = tableHTML;
+    
+    // Display daylight information if available
+    if (currentCrossingData.length > 0 && currentCrossingData[0].photography) {
+        displayDaylightInfo(currentCrossingData[0].photography);
+    } else {
+        displayDaylightInfo(null);
+    }
 }
 
 
