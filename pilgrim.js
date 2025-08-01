@@ -1,6 +1,50 @@
 // Store crossing data globally
 let currentCrossingData = [];
 
+// Function to format date in "1st Aug 2025" format
+function formatDateRange(dateStr) {
+    const date = new Date(dateStr);
+    const day = date.getDate();
+    const month = date.toLocaleDateString('en-GB', { month: 'short' });
+    const year = date.getFullYear();
+    
+    // Add ordinal suffix
+    const ordinal = (day) => {
+        const s = ['th', 'st', 'nd', 'rd'];
+        const v = day % 100;
+        return day + (s[(v - 20) % 10] || s[v] || s[0]);
+    };
+    
+    return `${ordinal(day)} ${month} ${year}`;
+}
+
+// Function to update date label with available range
+async function updateDateLabel() {
+    try {
+        const response = await fetch('./data/tides.json');
+        if (!response.ok) {
+            return; // Silently fail, keep original label
+        }
+        
+        const tideData = await response.json();
+        if (tideData.data) {
+            const dates = Object.keys(tideData.data).sort();
+            if (dates.length > 0) {
+                const firstDate = formatDateRange(dates[0]);
+                const lastDate = formatDateRange(dates[dates.length - 1]);
+                
+                const dateLabel = document.getElementById('dateSelectField');
+                if (dateLabel) {
+                    dateLabel.textContent = `Date: (${firstDate} - ${lastDate})`;
+                }
+            }
+        }
+    } catch (error) {
+        console.log('Could not load date range:', error.message);
+        // Silently fail, keep original label
+    }
+}
+
 // Function to load tide data and populate time fields
 async function loadTideData(selectedDate) {
     try {
@@ -103,6 +147,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const crossing2Radio = document.getElementById('crossing2');
     const today = new Date();
     dateInput.value = today.toISOString().split('T')[0];
+    
+    // Update the date label with available range
+    updateDateLabel();
     
     // Try to load tide data for today
     loadTideData(today);
