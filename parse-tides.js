@@ -83,13 +83,16 @@ async function getSunData(date) {
         const solarNoon = convertTimeFormat(data.results.solar_noon);
         const goldenHour = convertTimeFormat(data.results.golden_hour);
         
+        // Calculate proper morning golden hour end (1 hour after sunrise)
+        const morningGoldenEnd = minutesToTime(timeToMinutes(sunrise) + 60);
+        
         return {
             sunrise,
             sunset,
             dawn,
             dusk,
             solar_noon: solarNoon,
-            golden_hour_morning: `${sunrise}-${goldenHour}`,
+            golden_hour_morning: `${sunrise}-${morningGoldenEnd}`,
             golden_hour_evening: `${goldenHour}-${sunset}`,
             day_length: data.results.day_length
         };
