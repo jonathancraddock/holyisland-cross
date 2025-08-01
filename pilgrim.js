@@ -104,9 +104,9 @@ function updateCrossingResults() {
                 <table class="table is-fullwidth is-striped">
                     <thead>
                         <tr>
-                            <th>Crossing</th>
-                            <th>Causeway Safe Window</th>
-                            <th>Optimal Pilgrim Crossing</th>
+                            <th>&nbsp;</th>
+                            <th>Causeway Safe Crossing</th>
+                            <th>Pilgrim OptimalCrossing</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -133,7 +133,7 @@ function updateCrossingResults() {
         
         tableHTML += `
             <tr>
-                <td>Crossing ${index + 1}</td>
+                <td>${index + 1}</td>
                 <td>${causalwaySafe}</td>
                 <td>${pilgrimOptimal}</td>
             </tr>
