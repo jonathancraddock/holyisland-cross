@@ -107,7 +107,7 @@ function updateCrossingResults() {
                             <th>&nbsp;</th>
                             <th>Causeway Safe Crossing</th>
                             <th>Pilgrim Optimal Crossing</th>
-                            <th>Daylight</th>
+                            <th>Day</th>
                         </tr>
                     </thead>
                     <tbody>
