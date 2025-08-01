@@ -144,7 +144,7 @@ function updateCrossingResults() {
                     </tbody>
                 </table>
                 <p class="is-size-7 has-text-grey">
-                    <em>Optimal pilgrim crossing shows the recommended 3-hour window centered 90 minutes before the causeway safe crossing midpoint.</em>
+                    <em>The table shows an optimal Pilgrim's Crossing time (allowing 90 minutes) but always assess the local conditions before embarking on this walk.</em>
                 </p>
             </div>
         </div>
