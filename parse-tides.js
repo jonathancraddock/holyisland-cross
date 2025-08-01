@@ -9,6 +9,96 @@
 const fs = require('fs');
 const path = require('path');
 
+// Helper functions for time conversion and BST detection
+function timeToMinutes(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+}
+
+function minutesToTime(minutes) {
+    const hours = Math.floor(minutes / 60) % 24;
+    const mins = minutes % 60;
+    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+}
+
+function isDateInBST(dateStr) {
+    // BST runs from last Sunday in March to last Sunday in October
+    const date = new Date(dateStr);
+    const year = date.getFullYear();
+    
+    // Find last Sunday in March
+    const marchLastSun = new Date(year, 2, 31); // March 31st
+    marchLastSun.setDate(31 - marchLastSun.getDay()); // Go back to last Sunday
+    
+    // Find last Sunday in October  
+    const octLastSun = new Date(year, 9, 31); // October 31st
+    octLastSun.setDate(31 - octLastSun.getDay()); // Go back to last Sunday
+    
+    return date >= marchLastSun && date < octLastSun;
+}
+
+function convertTimeFormat(timeStr) {
+    // Convert 12-hour format "5:14:04 AM" to 24-hour format "05:14"
+    const match = timeStr.match(/(\d{1,2}):(\d{2}):(\d{2}) (AM|PM)/);
+    if (!match) return timeStr; // Already in correct format
+    
+    let [, hours, minutes, seconds, period] = match;
+    hours = parseInt(hours);
+    
+    if (period === 'AM' && hours === 12) {
+        hours = 0;
+    } else if (period === 'PM' && hours !== 12) {
+        hours += 12;
+    }
+    
+    return `${hours.toString().padStart(2, '0')}:${minutes}`;
+}
+
+// Sunrise/sunset API integration for Holy Island coordinates
+async function getSunData(date) {
+    const holyIslandLat = 55.6694;
+    const holyIslandLng = -1.7975;
+    
+    try {
+        const fetch = (await import('node-fetch')).default;
+        const response = await fetch(
+            `https://api.sunrisesunset.io/json?lat=${holyIslandLat}&lng=${holyIslandLng}&date=${date}`
+        );
+        
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        if (data.status !== 'OK') {
+            throw new Error(`API returned error: ${data.status}`);
+        }
+        
+        // Convert times to 24-hour format (API returns times already in local timezone)
+        const sunrise = convertTimeFormat(data.results.sunrise);
+        const sunset = convertTimeFormat(data.results.sunset);
+        const dawn = convertTimeFormat(data.results.dawn);
+        const dusk = convertTimeFormat(data.results.dusk);
+        const solarNoon = convertTimeFormat(data.results.solar_noon);
+        const goldenHour = convertTimeFormat(data.results.golden_hour);
+        
+        return {
+            sunrise,
+            sunset,
+            dawn,
+            dusk,
+            solar_noon: solarNoon,
+            golden_hour_morning: `${sunrise}-${goldenHour}`,
+            golden_hour_evening: `${goldenHour}-${sunset}`,
+            day_length: data.results.day_length
+        };
+    } catch (error) {
+        console.warn(`⚠️  Could not fetch sun data for ${date}: ${error.message}`);
+        return null;
+    }
+}
+
 function parseOrdinal(ordinalStr) {
     // Convert "1st", "2nd", "3rd", "31st" etc to day number
     return parseInt(ordinalStr.replace(/\D/g, ''));
@@ -63,8 +153,9 @@ function parseTimeRange(timeStr, baseDate) {
     };
 }
 
-function parseTideData(htmlContent, monthYear) {
+async function parseTideData(htmlContent, monthYear) {
     const data = {};
+    const sunDataCache = {}; // Cache sun data to avoid repeated API calls for same date
     
     // Extract table rows
     const rowRegex = /<tr class="row[12]">(.*?)<\/tr>/gs;
@@ -119,8 +210,48 @@ function parseTideData(htmlContent, monthYear) {
             const safePeriods = dayPeriods.filter(period => 
                 period.startDate === baseDate && period.type === "safe"
             );
+            
             if (safePeriods.length > 0) {
-                data[baseDate] = safePeriods;
+                // Get sun data for this date (cached to avoid repeated API calls)
+                if (!sunDataCache[baseDate]) {
+                    sunDataCache[baseDate] = await getSunData(baseDate);
+                    // Add small delay to be respectful to API
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+                const sunData = sunDataCache[baseDate];
+                
+                // Enhance each safe period with daylight and photography data
+                const enhancedPeriods = safePeriods.map(period => {
+                    // Calculate midpoint time
+                    const startMinutes = timeToMinutes(period.start);
+                    let endMinutes = timeToMinutes(period.end);
+                    
+                    // Handle midnight crossover
+                    if (period.endDate !== period.startDate) {
+                        endMinutes += 24 * 60; // Add 24 hours
+                    }
+                    
+                    const midpointMinutes = (startMinutes + endMinutes) / 2;
+                    const midpointTime = minutesToTime(midpointMinutes % (24 * 60));
+                    
+                    // Determine if midpoint is in daylight
+                    let isDaylight = false;
+                    if (sunData) {
+                        const sunriseMinutes = timeToMinutes(sunData.sunrise);
+                        const sunsetMinutes = timeToMinutes(sunData.sunset);
+                        const midMinutes = timeToMinutes(midpointTime);
+                        isDaylight = midMinutes >= sunriseMinutes && midMinutes <= sunsetMinutes;
+                    }
+                    
+                    return {
+                        ...period,
+                        midpoint: midpointTime,
+                        daylight: isDaylight,
+                        photography: sunData || null
+                    };
+                });
+                
+                data[baseDate] = enhancedPeriods;
             }
         }
     }
@@ -128,7 +259,7 @@ function parseTideData(htmlContent, monthYear) {
     return data;
 }
 
-function processFolder(folderPath) {
+async function processFolder(folderPath) {
     // Read all HTML files in the folder
     const files = fs.readdirSync(folderPath)
         .filter(file => file.match(/\d{2}-\d{2}\.html$/))
@@ -147,14 +278,14 @@ function processFolder(folderPath) {
     const monthsProcessed = [];
     let totalDays = 0;
 
-    files.forEach(file => {
+    for (const file of files) {
         const filePath = path.join(folderPath, file);
         console.log(`\n🔄 Processing ${file}...`);
         
         try {
             const monthYear = extractMonthYear(file);
             const htmlContent = fs.readFileSync(filePath, 'utf8');
-            const tideData = parseTideData(htmlContent, monthYear);
+            const tideData = await parseTideData(htmlContent, monthYear);
             
             // Merge data into combined object
             Object.assign(allData, tideData);
@@ -166,7 +297,7 @@ function processFolder(folderPath) {
         } catch (error) {
             console.log(`   ❌ Error processing ${file}: ${error.message}`);
         }
-    });
+    }
 
     // Create unified JSON structure
     const outputData = {
@@ -196,7 +327,7 @@ function processFolder(folderPath) {
     console.log(JSON.stringify(allData[firstDate], null, 2));
 }
 
-function processSingleFile(sourceFile) {
+async function processSingleFile(sourceFile) {
     // Extract month/year from filename
     const monthYear = extractMonthYear(sourceFile);
 
@@ -204,7 +335,7 @@ function processSingleFile(sourceFile) {
     const htmlContent = fs.readFileSync(sourceFile, 'utf8');
 
     // Parse the data
-    const tideData = parseTideData(htmlContent, monthYear);
+    const tideData = await parseTideData(htmlContent, monthYear);
 
     // Create the full JSON structure
     const outputData = {
@@ -236,18 +367,26 @@ function processSingleFile(sourceFile) {
 }
 
 // Main execution
-const input = process.argv[2] || './sourcedata/08-25.html';
+async function main() {
+    const input = process.argv[2] || './sourcedata/08-25.html';
 
-// Check if input is a directory or file
-if (fs.existsSync(input)) {
-    const stats = fs.statSync(input);
-    
-    if (stats.isDirectory()) {
-        processFolder(input);
+    // Check if input is a directory or file
+    if (fs.existsSync(input)) {
+        const stats = fs.statSync(input);
+        
+        if (stats.isDirectory()) {
+            await processFolder(input);
+        } else {
+            await processSingleFile(input);
+        }
     } else {
-        processSingleFile(input);
+        console.log(`❌ Path not found: ${input}`);
+        process.exit(1);
     }
-} else {
-    console.log(`❌ Path not found: ${input}`);
-    process.exit(1);
 }
+
+// Run main function and handle errors
+main().catch(error => {
+    console.error('❌ Script failed:', error.message);
+    process.exit(1);
+});

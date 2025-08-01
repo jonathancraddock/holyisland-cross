@@ -1,0 +1,1209 @@
+{
+  "lastUpdated": "2025-08-01T22:12:53.089Z",
+  "source": "Northumberland Council Holy Island Crossing Times",
+  "month": "August 2025",
+  "data": {
+    "2025-08-01": [
+      {
+        "type": "safe",
+        "start": "11:05",
+        "end": "19:15",
+        "startDate": "2025-08-01",
+        "endDate": "2025-08-01",
+        "midpoint": "15:10",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:14",
+          "sunset": "21:15",
+          "dawn": "04:26",
+          "dusk": "22:03",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:14-20:19",
+          "golden_hour_evening": "20:19-21:15",
+          "day_length": "16:01:21"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "23:00",
+        "end": "07:45",
+        "startDate": "2025-08-01",
+        "endDate": "2025-08-02",
+        "midpoint": "03:22.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:14",
+          "sunset": "21:15",
+          "dawn": "04:26",
+          "dusk": "22:03",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:14-20:19",
+          "golden_hour_evening": "20:19-21:15",
+          "day_length": "16:01:21"
+        }
+      }
+    ],
+    "2025-08-02": [
+      {
+        "type": "safe",
+        "start": "11:30",
+        "end": "20:15",
+        "startDate": "2025-08-02",
+        "endDate": "2025-08-02",
+        "midpoint": "15:52.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:15",
+          "sunset": "21:13",
+          "dawn": "04:28",
+          "dusk": "22:00",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:15-20:18",
+          "golden_hour_evening": "20:18-21:13",
+          "day_length": "15:57:32"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "23:40",
+        "end": "08:50",
+        "startDate": "2025-08-02",
+        "endDate": "2025-08-03",
+        "midpoint": "04:15",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:15",
+          "sunset": "21:13",
+          "dawn": "04:28",
+          "dusk": "22:00",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:15-20:18",
+          "golden_hour_evening": "20:18-21:13",
+          "day_length": "15:57:32"
+        }
+      }
+    ],
+    "2025-08-03": [
+      {
+        "type": "safe",
+        "start": "12:15",
+        "end": "21:15",
+        "startDate": "2025-08-03",
+        "endDate": "2025-08-03",
+        "midpoint": "16:45",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:17",
+          "sunset": "21:11",
+          "dawn": "04:30",
+          "dusk": "21:58",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:17-20:16",
+          "golden_hour_evening": "20:16-21:11",
+          "day_length": "15:53:40"
+        }
+      }
+    ],
+    "2025-08-04": [
+      {
+        "type": "safe",
+        "start": "00:35",
+        "end": "10:00",
+        "startDate": "2025-08-04",
+        "endDate": "2025-08-04",
+        "midpoint": "05:17.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:19",
+          "sunset": "21:09",
+          "dawn": "04:33",
+          "dusk": "21:56",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:19-20:14",
+          "golden_hour_evening": "20:14-21:09",
+          "day_length": "15:49:46"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "13:15",
+        "end": "22:20",
+        "startDate": "2025-08-04",
+        "endDate": "2025-08-04",
+        "midpoint": "17:47.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:19",
+          "sunset": "21:09",
+          "dawn": "04:33",
+          "dusk": "21:56",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:19-20:14",
+          "golden_hour_evening": "20:14-21:09",
+          "day_length": "15:49:46"
+        }
+      }
+    ],
+    "2025-08-05": [
+      {
+        "type": "safe",
+        "start": "01:45",
+        "end": "11:15",
+        "startDate": "2025-08-05",
+        "endDate": "2025-08-05",
+        "midpoint": "06:30",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:21",
+          "sunset": "21:07",
+          "dawn": "04:35",
+          "dusk": "21:53",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:21-20:12",
+          "golden_hour_evening": "20:12-21:07",
+          "day_length": "15:45:50"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "14:40",
+        "end": "23:25",
+        "startDate": "2025-08-05",
+        "endDate": "2025-08-05",
+        "midpoint": "19:2.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:21",
+          "sunset": "21:07",
+          "dawn": "04:35",
+          "dusk": "21:53",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:21-20:12",
+          "golden_hour_evening": "20:12-21:07",
+          "day_length": "15:45:50"
+        }
+      }
+    ],
+    "2025-08-06": [
+      {
+        "type": "safe",
+        "start": "03:10",
+        "end": "12:10",
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-06",
+        "midpoint": "07:40",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:23",
+          "sunset": "21:05",
+          "dawn": "04:37",
+          "dusk": "21:51",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:23-20:11",
+          "golden_hour_evening": "20:11-21:05",
+          "day_length": "15:41:51"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "16:05",
+        "end": "00:15",
+        "startDate": "2025-08-06",
+        "endDate": "2025-08-07",
+        "midpoint": "20:10",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:23",
+          "sunset": "21:05",
+          "dawn": "04:37",
+          "dusk": "21:51",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:23-20:11",
+          "golden_hour_evening": "20:11-21:05",
+          "day_length": "15:41:51"
+        }
+      }
+    ],
+    "2025-08-07": [
+      {
+        "type": "safe",
+        "start": "04:35",
+        "end": "12:45",
+        "startDate": "2025-08-07",
+        "endDate": "2025-08-07",
+        "midpoint": "08:40",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:25",
+          "sunset": "21:03",
+          "dawn": "04:39",
+          "dusk": "21:48",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:25-20:09",
+          "golden_hour_evening": "20:09-21:03",
+          "day_length": "15:37:50"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "17:20",
+        "end": "00:55",
+        "startDate": "2025-08-07",
+        "endDate": "2025-08-08",
+        "midpoint": "21:7.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:25",
+          "sunset": "21:03",
+          "dawn": "04:39",
+          "dusk": "21:48",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:25-20:09",
+          "golden_hour_evening": "20:09-21:03",
+          "day_length": "15:37:50"
+        }
+      }
+    ],
+    "2025-08-08": [
+      {
+        "type": "safe",
+        "start": "05:50",
+        "end": "13:20",
+        "startDate": "2025-08-08",
+        "endDate": "2025-08-08",
+        "midpoint": "09:35",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:27",
+          "sunset": "21:01",
+          "dawn": "04:42",
+          "dusk": "21:46",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:27-20:07",
+          "golden_hour_evening": "20:07-21:01",
+          "day_length": "15:33:48"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "18:25",
+        "end": "01:25",
+        "startDate": "2025-08-08",
+        "endDate": "2025-08-09",
+        "midpoint": "21:55",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:27",
+          "sunset": "21:01",
+          "dawn": "04:42",
+          "dusk": "21:46",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:27-20:07",
+          "golden_hour_evening": "20:07-21:01",
+          "day_length": "15:33:48"
+        }
+      }
+    ],
+    "2025-08-09": [
+      {
+        "type": "safe",
+        "start": "06:50",
+        "end": "13:45",
+        "startDate": "2025-08-09",
+        "endDate": "2025-08-09",
+        "midpoint": "10:17.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:29",
+          "sunset": "20:58",
+          "dawn": "04:44",
+          "dusk": "21:43",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:29-20:05",
+          "golden_hour_evening": "20:05-20:58",
+          "day_length": "15:29:43"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "19:25",
+        "end": "01:55",
+        "startDate": "2025-08-09",
+        "endDate": "2025-08-10",
+        "midpoint": "22:40",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:29",
+          "sunset": "20:58",
+          "dawn": "04:44",
+          "dusk": "21:43",
+          "solar_noon": "13:14",
+          "golden_hour_morning": "05:29-20:05",
+          "golden_hour_evening": "20:05-20:58",
+          "day_length": "15:29:43"
+        }
+      }
+    ],
+    "2025-08-10": [
+      {
+        "type": "safe",
+        "start": "07:45",
+        "end": "14:20",
+        "startDate": "2025-08-10",
+        "endDate": "2025-08-10",
+        "midpoint": "11:2.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:31",
+          "sunset": "20:56",
+          "dawn": "04:46",
+          "dusk": "21:41",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:31-20:03",
+          "golden_hour_evening": "20:03-20:56",
+          "day_length": "15:25:37"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "20:15",
+        "end": "02:20",
+        "startDate": "2025-08-10",
+        "endDate": "2025-08-11",
+        "midpoint": "23:17.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:31",
+          "sunset": "20:56",
+          "dawn": "04:46",
+          "dusk": "21:41",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:31-20:03",
+          "golden_hour_evening": "20:03-20:56",
+          "day_length": "15:25:37"
+        }
+      }
+    ],
+    "2025-08-11": [
+      {
+        "type": "safe",
+        "start": "08:35",
+        "end": "14:50",
+        "startDate": "2025-08-11",
+        "endDate": "2025-08-11",
+        "midpoint": "11:42.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:33",
+          "sunset": "20:54",
+          "dawn": "04:48",
+          "dusk": "21:38",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:33-20:01",
+          "golden_hour_evening": "20:01-20:54",
+          "day_length": "15:21:29"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "21:00",
+        "end": "02:55",
+        "startDate": "2025-08-11",
+        "endDate": "2025-08-12",
+        "midpoint": "23:57.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:33",
+          "sunset": "20:54",
+          "dawn": "04:48",
+          "dusk": "21:38",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:33-20:01",
+          "golden_hour_evening": "20:01-20:54",
+          "day_length": "15:21:29"
+        }
+      }
+    ],
+    "2025-08-12": [
+      {
+        "type": "safe",
+        "start": "09:20",
+        "end": "15:30",
+        "startDate": "2025-08-12",
+        "endDate": "2025-08-12",
+        "midpoint": "12:25",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:34",
+          "sunset": "20:52",
+          "dawn": "04:51",
+          "dusk": "21:36",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:34-19:59",
+          "golden_hour_evening": "19:59-20:52",
+          "day_length": "15:17:19"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "21:35",
+        "end": "03:35",
+        "startDate": "2025-08-12",
+        "endDate": "2025-08-13",
+        "midpoint": "00:35",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:34",
+          "sunset": "20:52",
+          "dawn": "04:51",
+          "dusk": "21:36",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:34-19:59",
+          "golden_hour_evening": "19:59-20:52",
+          "day_length": "15:17:19"
+        }
+      }
+    ],
+    "2025-08-13": [
+      {
+        "type": "safe",
+        "start": "10:00",
+        "end": "16:15",
+        "startDate": "2025-08-13",
+        "endDate": "2025-08-13",
+        "midpoint": "13:7.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:36",
+          "sunset": "20:50",
+          "dawn": "04:53",
+          "dusk": "21:33",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:36-19:57",
+          "golden_hour_evening": "19:57-20:50",
+          "day_length": "15:13:08"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "22:10",
+        "end": "04:20",
+        "startDate": "2025-08-13",
+        "endDate": "2025-08-14",
+        "midpoint": "01:15",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:36",
+          "sunset": "20:50",
+          "dawn": "04:53",
+          "dusk": "21:33",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:36-19:57",
+          "golden_hour_evening": "19:57-20:50",
+          "day_length": "15:13:08"
+        }
+      }
+    ],
+    "2025-08-14": [
+      {
+        "type": "safe",
+        "start": "10:30",
+        "end": "17:05",
+        "startDate": "2025-08-14",
+        "endDate": "2025-08-14",
+        "midpoint": "13:47.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:38",
+          "sunset": "20:47",
+          "dawn": "04:55",
+          "dusk": "21:30",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:38-19:55",
+          "golden_hour_evening": "19:55-20:47",
+          "day_length": "15:08:55"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "22:35",
+        "end": "05:10",
+        "startDate": "2025-08-14",
+        "endDate": "2025-08-15",
+        "midpoint": "01:52.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:38",
+          "sunset": "20:47",
+          "dawn": "04:55",
+          "dusk": "21:30",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:38-19:55",
+          "golden_hour_evening": "19:55-20:47",
+          "day_length": "15:08:55"
+        }
+      }
+    ],
+    "2025-08-15": [
+      {
+        "type": "safe",
+        "start": "11:00",
+        "end": "18:00",
+        "startDate": "2025-08-15",
+        "endDate": "2025-08-15",
+        "midpoint": "14:30",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:40",
+          "sunset": "20:45",
+          "dawn": "04:57",
+          "dusk": "21:28",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:40-19:53",
+          "golden_hour_evening": "19:53-20:45",
+          "day_length": "15:04:41"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "23:00",
+        "end": "06:15",
+        "startDate": "2025-08-15",
+        "endDate": "2025-08-16",
+        "midpoint": "02:37.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:40",
+          "sunset": "20:45",
+          "dawn": "04:57",
+          "dusk": "21:28",
+          "solar_noon": "13:13",
+          "golden_hour_morning": "05:40-19:53",
+          "golden_hour_evening": "19:53-20:45",
+          "day_length": "15:04:41"
+        }
+      }
+    ],
+    "2025-08-16": [
+      {
+        "type": "safe",
+        "start": "11:25",
+        "end": "19:05",
+        "startDate": "2025-08-16",
+        "endDate": "2025-08-16",
+        "midpoint": "15:15",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:42",
+          "sunset": "20:43",
+          "dawn": "05:00",
+          "dusk": "21:25",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:42-19:51",
+          "golden_hour_evening": "19:51-20:43",
+          "day_length": "15:00:26"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "23:30",
+        "end": "07:25",
+        "startDate": "2025-08-16",
+        "endDate": "2025-08-17",
+        "midpoint": "03:27.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:42",
+          "sunset": "20:43",
+          "dawn": "05:00",
+          "dusk": "21:25",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:42-19:51",
+          "golden_hour_evening": "19:51-20:43",
+          "day_length": "15:00:26"
+        }
+      }
+    ],
+    "2025-08-17": [
+      {
+        "type": "safe",
+        "start": "12:00",
+        "end": "20:25",
+        "startDate": "2025-08-17",
+        "endDate": "2025-08-17",
+        "midpoint": "16:12.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:44",
+          "sunset": "20:40",
+          "dawn": "05:02",
+          "dusk": "21:23",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:44-19:49",
+          "golden_hour_evening": "19:49-20:40",
+          "day_length": "14:56:09"
+        }
+      }
+    ],
+    "2025-08-18": [
+      {
+        "type": "safe",
+        "start": "00:20",
+        "end": "08:55",
+        "startDate": "2025-08-18",
+        "endDate": "2025-08-18",
+        "midpoint": "04:37.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:46",
+          "sunset": "20:38",
+          "dawn": "05:04",
+          "dusk": "21:20",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:46-19:46",
+          "golden_hour_evening": "19:46-20:38",
+          "day_length": "14:51:52"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "13:05",
+        "end": "21:45",
+        "startDate": "2025-08-18",
+        "endDate": "2025-08-18",
+        "midpoint": "17:25",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:46",
+          "sunset": "20:38",
+          "dawn": "05:04",
+          "dusk": "21:20",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:46-19:46",
+          "golden_hour_evening": "19:46-20:38",
+          "day_length": "14:51:52"
+        }
+      }
+    ],
+    "2025-08-19": [
+      {
+        "type": "safe",
+        "start": "01:40",
+        "end": "10:25",
+        "startDate": "2025-08-19",
+        "endDate": "2025-08-19",
+        "midpoint": "06:2.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:48",
+          "sunset": "20:36",
+          "dawn": "05:06",
+          "dusk": "21:17",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:48-19:44",
+          "golden_hour_evening": "19:44-20:36",
+          "day_length": "14:47:33"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "14:35",
+        "end": "23:00",
+        "startDate": "2025-08-19",
+        "endDate": "2025-08-19",
+        "midpoint": "18:47.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:48",
+          "sunset": "20:36",
+          "dawn": "05:06",
+          "dusk": "21:17",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:48-19:44",
+          "golden_hour_evening": "19:44-20:36",
+          "day_length": "14:47:33"
+        }
+      }
+    ],
+    "2025-08-20": [
+      {
+        "type": "safe",
+        "start": "03:15",
+        "end": "11:35",
+        "startDate": "2025-08-20",
+        "endDate": "2025-08-20",
+        "midpoint": "07:25",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:50",
+          "sunset": "20:33",
+          "dawn": "05:08",
+          "dusk": "21:15",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:50-19:42",
+          "golden_hour_evening": "19:42-20:33",
+          "day_length": "14:43:13"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "16:15",
+        "end": "23:55",
+        "startDate": "2025-08-20",
+        "endDate": "2025-08-20",
+        "midpoint": "20:05",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:50",
+          "sunset": "20:33",
+          "dawn": "05:08",
+          "dusk": "21:15",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "05:50-19:42",
+          "golden_hour_evening": "19:42-20:33",
+          "day_length": "14:43:13"
+        }
+      }
+    ],
+    "2025-08-21": [
+      {
+        "type": "safe",
+        "start": "04:50",
+        "end": "12:25",
+        "startDate": "2025-08-21",
+        "endDate": "2025-08-21",
+        "midpoint": "08:37.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:52",
+          "sunset": "20:31",
+          "dawn": "05:11",
+          "dusk": "21:12",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:52-19:40",
+          "golden_hour_evening": "19:40-20:31",
+          "day_length": "14:38:52"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "17:35",
+        "end": "00:40",
+        "startDate": "2025-08-21",
+        "endDate": "2025-08-22",
+        "midpoint": "21:7.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:52",
+          "sunset": "20:31",
+          "dawn": "05:11",
+          "dusk": "21:12",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:52-19:40",
+          "golden_hour_evening": "19:40-20:31",
+          "day_length": "14:38:52"
+        }
+      }
+    ],
+    "2025-08-22": [
+      {
+        "type": "safe",
+        "start": "06:10",
+        "end": "13:05",
+        "startDate": "2025-08-22",
+        "endDate": "2025-08-22",
+        "midpoint": "09:37.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:54",
+          "sunset": "20:28",
+          "dawn": "05:13",
+          "dusk": "21:09",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:54-19:38",
+          "golden_hour_evening": "19:38-20:28",
+          "day_length": "14:34:30"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "18:40",
+        "end": "01:15",
+        "startDate": "2025-08-22",
+        "endDate": "2025-08-23",
+        "midpoint": "21:57.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:54",
+          "sunset": "20:28",
+          "dawn": "05:13",
+          "dusk": "21:09",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:54-19:38",
+          "golden_hour_evening": "19:38-20:28",
+          "day_length": "14:34:30"
+        }
+      }
+    ],
+    "2025-08-23": [
+      {
+        "type": "safe",
+        "start": "07:10",
+        "end": "13:40",
+        "startDate": "2025-08-23",
+        "endDate": "2025-08-23",
+        "midpoint": "10:25",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:56",
+          "sunset": "20:26",
+          "dawn": "05:15",
+          "dusk": "21:07",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:56-19:35",
+          "golden_hour_evening": "19:35-20:26",
+          "day_length": "14:30:08"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "19:30",
+        "end": "01:45",
+        "startDate": "2025-08-23",
+        "endDate": "2025-08-24",
+        "midpoint": "22:37.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:56",
+          "sunset": "20:26",
+          "dawn": "05:15",
+          "dusk": "21:07",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:56-19:35",
+          "golden_hour_evening": "19:35-20:26",
+          "day_length": "14:30:08"
+        }
+      }
+    ],
+    "2025-08-24": [
+      {
+        "type": "safe",
+        "start": "08:00",
+        "end": "14:15",
+        "startDate": "2025-08-24",
+        "endDate": "2025-08-24",
+        "midpoint": "11:7.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "05:58",
+          "sunset": "20:23",
+          "dawn": "05:17",
+          "dusk": "21:04",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:58-19:33",
+          "golden_hour_evening": "19:33-20:23",
+          "day_length": "14:25:44"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "20:05",
+        "end": "02:25",
+        "startDate": "2025-08-24",
+        "endDate": "2025-08-25",
+        "midpoint": "23:15",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:58",
+          "sunset": "20:23",
+          "dawn": "05:17",
+          "dusk": "21:04",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "05:58-19:33",
+          "golden_hour_evening": "19:33-20:23",
+          "day_length": "14:25:44"
+        }
+      }
+    ],
+    "2025-08-25": [
+      {
+        "type": "safe",
+        "start": "08:40",
+        "end": "14:50",
+        "startDate": "2025-08-25",
+        "endDate": "2025-08-25",
+        "midpoint": "11:45",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:00",
+          "sunset": "20:21",
+          "dawn": "05:19",
+          "dusk": "21:01",
+          "solar_noon": "13:10",
+          "golden_hour_morning": "06:00-19:31",
+          "golden_hour_evening": "19:31-20:21",
+          "day_length": "14:21:20"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "20:35",
+        "end": "03:00",
+        "startDate": "2025-08-25",
+        "endDate": "2025-08-26",
+        "midpoint": "23:47.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:00",
+          "sunset": "20:21",
+          "dawn": "05:19",
+          "dusk": "21:01",
+          "solar_noon": "13:10",
+          "golden_hour_morning": "06:00-19:31",
+          "golden_hour_evening": "19:31-20:21",
+          "day_length": "14:21:20"
+        }
+      }
+    ],
+    "2025-08-26": [
+      {
+        "type": "safe",
+        "start": "09:10",
+        "end": "15:30",
+        "startDate": "2025-08-26",
+        "endDate": "2025-08-26",
+        "midpoint": "12:20",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:02",
+          "sunset": "20:18",
+          "dawn": "05:21",
+          "dusk": "20:59",
+          "solar_noon": "13:10",
+          "golden_hour_morning": "06:02-19:28",
+          "golden_hour_evening": "19:28-20:18",
+          "day_length": "14:16:55"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "21:00",
+        "end": "03:40",
+        "startDate": "2025-08-26",
+        "endDate": "2025-08-27",
+        "midpoint": "00:20",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:02",
+          "sunset": "20:18",
+          "dawn": "05:21",
+          "dusk": "20:59",
+          "solar_noon": "13:10",
+          "golden_hour_morning": "06:02-19:28",
+          "golden_hour_evening": "19:28-20:18",
+          "day_length": "14:16:55"
+        }
+      }
+    ],
+    "2025-08-27": [
+      {
+        "type": "safe",
+        "start": "09:30",
+        "end": "16:10",
+        "startDate": "2025-08-27",
+        "endDate": "2025-08-27",
+        "midpoint": "12:50",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:03",
+          "sunset": "20:16",
+          "dawn": "05:24",
+          "dusk": "20:56",
+          "solar_noon": "13:10",
+          "golden_hour_morning": "06:03-19:26",
+          "golden_hour_evening": "19:26-20:16",
+          "day_length": "14:12:29"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "21:20",
+        "end": "04:25",
+        "startDate": "2025-08-27",
+        "endDate": "2025-08-28",
+        "midpoint": "00:52.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:03",
+          "sunset": "20:16",
+          "dawn": "05:24",
+          "dusk": "20:56",
+          "solar_noon": "13:10",
+          "golden_hour_morning": "06:03-19:26",
+          "golden_hour_evening": "19:26-20:16",
+          "day_length": "14:12:29"
+        }
+      }
+    ],
+    "2025-08-28": [
+      {
+        "type": "safe",
+        "start": "09:50",
+        "end": "16:50",
+        "startDate": "2025-08-28",
+        "endDate": "2025-08-28",
+        "midpoint": "13:20",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:05",
+          "sunset": "20:13",
+          "dawn": "05:26",
+          "dusk": "20:53",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:05-19:24",
+          "golden_hour_evening": "19:24-20:13",
+          "day_length": "14:08:03"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "21:40",
+        "end": "05:10",
+        "startDate": "2025-08-28",
+        "endDate": "2025-08-29",
+        "midpoint": "01:25",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:05",
+          "sunset": "20:13",
+          "dawn": "05:26",
+          "dusk": "20:53",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:05-19:24",
+          "golden_hour_evening": "19:24-20:13",
+          "day_length": "14:08:03"
+        }
+      }
+    ],
+    "2025-08-29": [
+      {
+        "type": "safe",
+        "start": "10:05",
+        "end": "17:35",
+        "startDate": "2025-08-29",
+        "endDate": "2025-08-29",
+        "midpoint": "13:50",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:07",
+          "sunset": "20:11",
+          "dawn": "05:28",
+          "dusk": "20:51",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:07-19:21",
+          "golden_hour_evening": "19:21-20:11",
+          "day_length": "14:03:36"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "22:00",
+        "end": "06:00",
+        "startDate": "2025-08-29",
+        "endDate": "2025-08-30",
+        "midpoint": "02:00",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:07",
+          "sunset": "20:11",
+          "dawn": "05:28",
+          "dusk": "20:51",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:07-19:21",
+          "golden_hour_evening": "19:21-20:11",
+          "day_length": "14:03:36"
+        }
+      }
+    ],
+    "2025-08-30": [
+      {
+        "type": "safe",
+        "start": "10:20",
+        "end": "18:25",
+        "startDate": "2025-08-30",
+        "endDate": "2025-08-30",
+        "midpoint": "14:22.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:09",
+          "sunset": "20:08",
+          "dawn": "05:30",
+          "dusk": "20:48",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:09-19:19",
+          "golden_hour_evening": "19:19-20:08",
+          "day_length": "13:59:09"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "22:25",
+        "end": "07:00",
+        "startDate": "2025-08-30",
+        "endDate": "2025-08-31",
+        "midpoint": "02:42.5",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:09",
+          "sunset": "20:08",
+          "dawn": "05:30",
+          "dusk": "20:48",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:09-19:19",
+          "golden_hour_evening": "19:19-20:08",
+          "day_length": "13:59:09"
+        }
+      }
+    ],
+    "2025-08-31": [
+      {
+        "type": "safe",
+        "start": "10:40",
+        "end": "19:25",
+        "startDate": "2025-08-31",
+        "endDate": "2025-08-31",
+        "midpoint": "15:2.5",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:11",
+          "sunset": "20:06",
+          "dawn": "05:32",
+          "dusk": "20:45",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:11-19:16",
+          "golden_hour_evening": "19:16-20:06",
+          "day_length": "13:54:41"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "22:55",
+        "end": "08:05",
+        "startDate": "2025-08-31",
+        "endDate": "2025-09-01",
+        "midpoint": "03:30",
+        "daylight": false,
+        "photography": {
+          "sunrise": "06:11",
+          "sunset": "20:06",
+          "dawn": "05:32",
+          "dusk": "20:45",
+          "solar_noon": "13:09",
+          "golden_hour_morning": "06:11-19:16",
+          "golden_hour_evening": "19:16-20:06",
+          "day_length": "13:54:41"
+        }
+      }
+    ]
+  }
+}
