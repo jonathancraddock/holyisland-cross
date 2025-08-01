@@ -107,6 +107,7 @@ function updateCrossingResults() {
                             <th>&nbsp;</th>
                             <th>Causeway Safe Crossing</th>
                             <th>Pilgrim Optimal Crossing</th>
+                            <th>Daylight</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,11 +132,15 @@ function updateCrossingResults() {
         const causalwaySafe = `${crossing.start} - ${crossing.end}`;
         const pilgrimOptimal = `${formatTime(optimalStart)} - ${formatTime(midpoint)}`;
         
+        // Daylight icon
+        const daylightIcon = crossing.daylight ? '☀️' : '🌙';
+        
         tableHTML += `
             <tr>
-                <td>${index + 1}</td>
+                <td>${index + 1}.) </td>
                 <td>${causalwaySafe}</td>
                 <td>${pilgrimOptimal}</td>
+                <td style="text-align: center;">${daylightIcon}</td>
             </tr>
         `;
     });
