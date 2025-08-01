@@ -133,7 +133,7 @@ function updateCrossingResults() {
         
         tableHTML += `
             <tr>
-                <td><strong>Crossing ${index + 1}</strong></td>
+                <td>Crossing ${index + 1}</td>
                 <td>${causalwaySafe}</td>
                 <td>${pilgrimOptimal}</td>
             </tr>
