@@ -1,3 +1,6 @@
+// Store crossing data globally
+let currentCrossingData = [];
+
 // Function to load tide data and populate time fields
 async function loadTideData(selectedDate) {
     try {
@@ -13,28 +16,91 @@ async function loadTideData(selectedDate) {
         
         // Look for tide data for the selected date
         if (tideData.data && tideData.data[dateStr] && tideData.data[dateStr].length > 0) {
-            // Get the first available safe crossing time for the day
-            const firstCrossing = tideData.data[dateStr][0];
-            console.log('Found crossing data:', firstCrossing);
+            currentCrossingData = tideData.data[dateStr];
+            console.log('Found crossing data:', currentCrossingData);
             
-            document.getElementById('startTime').value = firstCrossing.start;
-            document.getElementById('endTime').value = firstCrossing.end;
-            
+            updateCrossingOptions();
             return true;
         } else {
             console.log('No tide data found for', dateStr);
+            currentCrossingData = [];
+            updateCrossingOptions();
         }
         
         return false;
     } catch (error) {
         console.log('Could not load tide data:', error.message);
+        currentCrossingData = [];
+        updateCrossingOptions();
         return false;
+    }
+}
+
+// Function to update radio button states and populate time fields
+function updateCrossingOptions() {
+    const crossing1Radio = document.getElementById('crossing1');
+    const crossing2Radio = document.getElementById('crossing2');
+    
+    if (currentCrossingData.length === 0) {
+        // No data available - disable both radio buttons
+        crossing1Radio.disabled = true;
+        crossing2Radio.disabled = true;
+        crossing1Radio.checked = false;
+        crossing2Radio.checked = false;
+        
+        // Clear time fields
+        document.getElementById('startTime').value = '';
+        document.getElementById('endTime').value = '';
+        
+    } else if (currentCrossingData.length === 1) {
+        // Only one crossing - enable first radio button, disable second
+        crossing1Radio.disabled = false;
+        crossing2Radio.disabled = true;
+        crossing1Radio.checked = true;
+        crossing2Radio.checked = false;
+        
+        // Populate with first crossing
+        const crossing = currentCrossingData[0];
+        document.getElementById('startTime').value = crossing.start;
+        document.getElementById('endTime').value = crossing.end;
+        
+    } else {
+        // Two crossings - enable both radio buttons
+        crossing1Radio.disabled = false;
+        crossing2Radio.disabled = false;
+        
+        // Set first crossing as default if no selection
+        if (!crossing1Radio.checked && !crossing2Radio.checked) {
+            crossing1Radio.checked = true;
+        }
+        
+        // Populate based on current selection
+        populateSelectedCrossing();
+    }
+}
+
+// Function to populate time fields based on selected radio button
+function populateSelectedCrossing() {
+    const crossing1Radio = document.getElementById('crossing1');
+    const crossing2Radio = document.getElementById('crossing2');
+    
+    let selectedIndex = 0;
+    if (crossing2Radio.checked) {
+        selectedIndex = 1;
+    }
+    
+    if (currentCrossingData.length > selectedIndex) {
+        const crossing = currentCrossingData[selectedIndex];
+        document.getElementById('startTime').value = crossing.start;
+        document.getElementById('endTime').value = crossing.end;
     }
 }
 
 // Set today's date as default and try to load tide data
 document.addEventListener('DOMContentLoaded', function() {
     const dateInput = document.getElementById('crossingDate');
+    const crossing1Radio = document.getElementById('crossing1');
+    const crossing2Radio = document.getElementById('crossing2');
     const today = new Date();
     dateInput.value = today.toISOString().split('T')[0];
     
@@ -45,6 +111,19 @@ document.addEventListener('DOMContentLoaded', function() {
     dateInput.addEventListener('change', function(event) {
         const selectedDate = new Date(event.target.value + 'T00:00:00');
         loadTideData(selectedDate);
+    });
+    
+    // Add event listeners for radio button changes
+    crossing1Radio.addEventListener('change', function() {
+        if (this.checked) {
+            populateSelectedCrossing();
+        }
+    });
+    
+    crossing2Radio.addEventListener('change', function() {
+        if (this.checked) {
+            populateSelectedCrossing();
+        }
     });
 });
 
