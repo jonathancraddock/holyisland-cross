@@ -98,36 +98,36 @@ function displayDaylightInfo(photographyData) {
             </thead>
             <tbody>
                 <tr>
-                    <td><strong>Sunrise</strong></td>
-                    <td>${photographyData.sunrise}</td>
+                    <td>Sunrise</td>
+                    <td><strong>${photographyData.sunrise}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Sunset</strong></td>
-                    <td>${photographyData.sunset}</td>
+                    <td>Sunset</td>
+                    <td><strong>${photographyData.sunset}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Dawn</strong></td>
-                    <td>${photographyData.dawn}</td>
+                    <td>Dawn</td>
+                    <td><strong>${photographyData.dawn}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Dusk</strong></td>
-                    <td>${photographyData.dusk}</td>
+                    <td>Dusk</td>
+                    <td><strong>${photographyData.dusk}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Day Length</strong></td>
-                    <td>${photographyData.day_length}</td>
+                    <td>Day Length</td>
+                    <td><strong>${photographyData.day_length}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Solar Noon</strong></td>
-                    <td>${photographyData.solar_noon}</td>
+                    <td>Noon</td>
+                    <td><strong>${photographyData.solar_noon}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Golden Hour (Morning)</strong></td>
-                    <td>${photographyData.golden_hour_morning}</td>
+                    <td>Golden Hour (Morning)</td>
+                    <td><strong>${photographyData.golden_hour_morning}</strong></td>
                 </tr>
                 <tr>
-                    <td><strong>Golden Hour (Evening)</strong></td>
-                    <td>${photographyData.golden_hour_evening}</td>
+                    <td>Golden Hour (Evening)</td>
+                    <td><strong>${photographyData.golden_hour_evening}</strong></td>
                 </tr>
             </tbody>
         </table>
