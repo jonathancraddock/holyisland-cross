@@ -294,7 +294,7 @@ async function performAdvancedSearch() {
         filteredResults = [];
         
         Object.keys(tideData.data).forEach(dateStr => {
-            const date = new Date(dateStr);
+            const date = new Date(dateStr + 'T00:00:00');
             
             // Check date range
             if (date < dateFrom || date > dateUntil) return;

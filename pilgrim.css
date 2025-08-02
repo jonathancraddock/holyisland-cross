@@ -6,6 +6,10 @@ ul {
     list-style: circle inside; margin: .6rem; 
 }
 
+#resultDetails {
+  margin-top: 8px;
+}
+
 #infoMessage { 
     margin-top: 2rem; 
 }
