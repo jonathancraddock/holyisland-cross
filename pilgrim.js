@@ -275,8 +275,8 @@ async function performAdvancedSearch() {
         
         // Get filter criteria
         const crossingType = document.getElementById('crossingType').value;
-        const dateFrom = new Date(document.getElementById('dateFrom').value);
-        const dateUntil = new Date(document.getElementById('dateUntil').value);
+        const dateFrom = new Date(document.getElementById('dateFrom').value + 'T00:00:00');
+        const dateUntil = new Date(document.getElementById('dateUntil').value + 'T00:00:00');
         const selectedDays = Array.from(document.querySelectorAll('input[type="checkbox"][id^="day-"]:checked')).map(cb => parseInt(cb.value));
         const timeFrom = document.getElementById('timeFrom').value;
         const timeUntil = document.getElementById('timeUntil').value;
