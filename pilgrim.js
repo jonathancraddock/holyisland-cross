@@ -153,10 +153,10 @@ function updateCrossingResults() {
     let tableHTML = `
         <div class="message is-info">
             <div class="message-header">
-                <p>Pilgrim's Way Crossing Times</p>
+                <p>Crossing Times (<span id="crossingDate" class="has-text-weight-bold">${currentCrossingData[0].date}</span>)</p>
             </div>
             <div class="message-body">
-                <table class="table is-fullwidth is-striped">
+                <table class="table is-fullwidth">
                     <thead>
                         <tr>
                             <th>&nbsp;</th>
