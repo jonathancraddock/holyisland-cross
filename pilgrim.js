@@ -65,7 +65,9 @@ async function loadTideData(selectedDate) {
         }
         
         const tideData = await response.json();
-        const dateStr = selectedDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+        const dateStr = selectedDate.getFullYear() + '-' + 
+                        String(selectedDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                        String(selectedDate.getDate()).padStart(2, '0'); // YYYY-MM-DD format in local time
         console.log('Looking for tide data for:', dateStr);
         
         // Look for tide data for the selected date
@@ -163,7 +165,7 @@ function updateCrossingResults() {
     let tableHTML = `
         <div class="message is-info">
             <div class="message-header">
-                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${formatDateRange(currentCrossingData[0].date)}</span>)</p>
+                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${formatDateRange(currentCrossingData[0].startDate)}</span>)</p>
             </div>
             <div class="message-body">
                 <table class="table is-fullwidth">
