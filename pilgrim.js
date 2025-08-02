@@ -49,7 +49,6 @@ async function updateDateLabel() {
 function updateShowCrossingDate(dateValue) {
     const showCrossingDateSpan = document.getElementById('showCrossingDate');
     if (showCrossingDateSpan && dateValue) {
-        const selectedDate = new Date(dateValue + 'T00:00:00');
         showCrossingDateSpan.textContent = formatDateRange(dateValue);
     }
 }
@@ -162,7 +161,7 @@ function updateCrossingResults() {
     let tableHTML = `
         <div class="message is-info">
             <div class="message-header">
-                <p>Crossing Times (<span id="crossingDate" class="has-text-weight-bold">${currentCrossingData[0].date}</span>)</p>
+                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${currentCrossingData[0].date}</span>)</p>
             </div>
             <div class="message-body">
                 <table class="table is-fullwidth">
@@ -220,6 +219,12 @@ function updateCrossingResults() {
     `;
     
     resultsDiv.innerHTML = tableHTML;
+    
+    // Update the showCrossingDate span with the selected date
+    const dateInput = document.getElementById('crossingDate');
+    if (dateInput && dateInput.value) {
+        updateShowCrossingDate(dateInput.value);
+    }
     
     // Display daylight information if available
     if (currentCrossingData.length > 0 && currentCrossingData[0].photography) {
