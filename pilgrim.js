@@ -163,7 +163,7 @@ function updateCrossingResults() {
     let tableHTML = `
         <div class="message is-info">
             <div class="message-header">
-                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${currentCrossingData[0].date}</span>)</p>
+                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${formatDateRange(currentCrossingData[0].date)}</span>)</p>
             </div>
             <div class="message-body">
                 <table class="table is-fullwidth">
@@ -222,11 +222,7 @@ function updateCrossingResults() {
     
     resultsDiv.innerHTML = tableHTML;
     
-    // Update the showCrossingDate span with the selected date
-    const dateInput = document.getElementById('crossingDate');
-    if (dateInput && dateInput.value) {
-        updateShowCrossingDate(dateInput.value);
-    }
+    // Note: Date is already correctly displayed in the table header from currentCrossingData[0].date
     
     // Display daylight information if available
     if (currentCrossingData.length > 0 && currentCrossingData[0].photography) {
@@ -302,16 +298,6 @@ async function performAdvancedSearch() {
             // Check day of week
             if (!selectedDays.includes(date.getDay())) return;
             
-            // Debug logging for specific date
-            if (dateStr === '2025-08-04') {
-                console.log('Processing 2025-08-04:', {
-                    dateStr,
-                    date: date.toISOString(),
-                    dayOfWeek: date.getDay(),
-                    selectedDays,
-                    crossings: tideData.data[dateStr]
-                });
-            }
             
             // Check each crossing for this date
             tideData.data[dateStr].forEach((crossing, index) => {
