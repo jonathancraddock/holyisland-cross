@@ -84,22 +84,22 @@
     </header>
     <section class="modal-card-body">
       <div class="field">
-        <label class="label">Crossing Type</label>
+        <label class="label">Crossing Type:</label>
         <div class="control">
           <div class="select is-fullwidth">
             <select id="crossingType">
-              <option value="pilgrim">Pilgrim Crossing (90min optimal window)</option>
-              <option value="causeway">Causeway Times (full safe window)</option>
+              <option value="pilgrim">Pilgrim's Way Crossing</option>
+              <option value="causeway">Causeway Crossing</option>
             </select>
           </div>
         </div>
-        <p class="help">Pilgrim times arrive 90min before tide midpoint for optimal crossing</p>
+        <p class="help">The optimal Pilgrim's Way timing aims to complete the crossing on a receding tide. This calculation is based on a start time 90 minutes before the causeway safe-crossing midpoint.</p>
       </div>
 
       <div class="columns">
         <div class="column">
           <div class="field">
-            <label class="label">Available From</label>
+            <label class="label">Search From:</label>
             <div class="control">
               <input class="input" type="date" id="dateFrom">
             </div>
@@ -107,7 +107,7 @@
         </div>
         <div class="column">
           <div class="field">
-            <label class="label">Available Until</label>
+            <label class="label">Search Until:</label>
             <div class="control">
               <input class="input" type="date" id="dateUntil">
             </div>
@@ -116,7 +116,7 @@
       </div>
 
       <div class="field">
-        <label class="label">Available Days</label>
+        <label class="label">Preferred Days</label>
         <div class="field is-grouped is-grouped-multiline">
           <div class="control">
             <label class="checkbox">
@@ -154,15 +154,15 @@
             </label>
           </div>
         </div>
-        <p class="help">Select all days you're available to travel</p>
+        <p class="help">Select all days you're available to travel.</p>
       </div>
 
       <div class="field">
-        <label class="label">Preferred Crossing Time</label>
+        <label class="label">Crossing StartTime</label>
         <div class="columns">
           <div class="column">
             <div class="field">
-              <label class="label is-small">Earliest</label>
+              <label class="label is-small">Earliest Start:</label>
               <div class="control">
                 <input class="input" type="time" id="timeFrom" value="06:00">
               </div>
@@ -170,7 +170,7 @@
           </div>
           <div class="column">
             <div class="field">
-              <label class="label is-small">Latest</label>
+              <label class="label is-small">Latest Start:</label>
               <div class="control">
                 <input class="input" type="time" id="timeUntil" value="18:00">
               </div>
