@@ -45,6 +45,15 @@ async function updateDateLabel() {
     }
 }
 
+// Function to update the showCrossingDate span
+function updateShowCrossingDate(dateValue) {
+    const showCrossingDateSpan = document.getElementById('showCrossingDate');
+    if (showCrossingDateSpan && dateValue) {
+        const selectedDate = new Date(dateValue + 'T00:00:00');
+        showCrossingDateSpan.textContent = formatDateRange(dateValue);
+    }
+}
+
 // Function to load tide data and populate time fields
 async function loadTideData(selectedDate) {
     try {
@@ -230,12 +239,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Update the date label with available range
     updateDateLabel();
     
+    // Update the showCrossingDate span with today's date
+    updateShowCrossingDate(dateInput.value);
+    
     // Try to load tide data for today
     loadTideData(today);
     
     // Add event listener for date changes
     dateInput.addEventListener('change', function(event) {
         const selectedDate = new Date(event.target.value + 'T00:00:00');
+        updateShowCrossingDate(event.target.value);
         loadTideData(selectedDate);
     });
 });
