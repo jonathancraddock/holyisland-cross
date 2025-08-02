@@ -302,6 +302,17 @@ async function performAdvancedSearch() {
             // Check day of week
             if (!selectedDays.includes(date.getDay())) return;
             
+            // Debug logging for specific date
+            if (dateStr === '2025-08-04') {
+                console.log('Processing 2025-08-04:', {
+                    dateStr,
+                    date: date.toISOString(),
+                    dayOfWeek: date.getDay(),
+                    selectedDays,
+                    crossings: tideData.data[dateStr]
+                });
+            }
+            
             // Check each crossing for this date
             tideData.data[dateStr].forEach((crossing, index) => {
                 let crossingTime, crossingLabel;
