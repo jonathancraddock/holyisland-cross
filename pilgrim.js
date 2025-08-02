@@ -414,13 +414,16 @@ function viewSelectedResult() {
 document.addEventListener('DOMContentLoaded', function() {
     const dateInput = document.getElementById('crossingDate');
     const today = new Date();
-    dateInput.value = today.toISOString().split('T')[0];
+    const todayStr = today.getFullYear() + '-' + 
+                    String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(today.getDate()).padStart(2, '0');
+    dateInput.value = todayStr;
     
     // Update the date label with available range
     updateDateLabel();
     
     // Update the showCrossingDate span with today's date
-    updateShowCrossingDate(dateInput.value);
+    updateShowCrossingDate(todayStr);
     
     // Try to load tide data for today
     loadTideData(today);
