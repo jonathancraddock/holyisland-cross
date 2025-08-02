@@ -74,6 +74,162 @@
 
 </section>
 
+<!-- Advanced Filter Modal -->
+<div id="filterModal" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Find Your Perfect Crossing</p>
+      <button class="delete" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Crossing Type</label>
+        <div class="control">
+          <div class="select is-fullwidth">
+            <select id="crossingType">
+              <option value="pilgrim">Pilgrim Crossing (90min optimal window)</option>
+              <option value="causeway">Causeway Times (full safe window)</option>
+            </select>
+          </div>
+        </div>
+        <p class="help">Pilgrim times arrive 90min before tide midpoint for optimal crossing</p>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <div class="field">
+            <label class="label">Available From</label>
+            <div class="control">
+              <input class="input" type="date" id="dateFrom">
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="field">
+            <label class="label">Available Until</label>
+            <div class="control">
+              <input class="input" type="date" id="dateUntil">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Available Days</label>
+        <div class="field is-grouped is-grouped-multiline">
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-mon" value="1"> Monday
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-tue" value="2"> Tuesday
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-wed" value="3"> Wednesday
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-thu" value="4"> Thursday
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-fri" value="5"> Friday
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-sat" value="6"> Saturday
+            </label>
+          </div>
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" id="day-sun" value="0"> Sunday
+            </label>
+          </div>
+        </div>
+        <p class="help">Select all days you're available to travel</p>
+      </div>
+
+      <div class="field">
+        <label class="label">Preferred Crossing Time</label>
+        <div class="columns">
+          <div class="column">
+            <div class="field">
+              <label class="label is-small">Earliest</label>
+              <div class="control">
+                <input class="input" type="time" id="timeFrom" value="06:00">
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="field">
+              <label class="label is-small">Latest</label>
+              <div class="control">
+                <input class="input" type="time" id="timeUntil" value="18:00">
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="help">Preferred time range for starting your crossing</p>
+      </div>
+
+      <!-- Results section (initially hidden) -->
+      <div id="searchResults" class="box" style="display: none;">
+        <div class="level">
+          <div class="level-left">
+            <div class="level-item">
+              <div>
+                <p class="heading">Next Available Crossing</p>
+                <p class="title is-4" id="resultDate">-</p>
+                <p class="subtitle" id="resultDetails">-</p>
+              </div>
+            </div>
+          </div>
+          <div class="level-right">
+            <div class="level-item">
+              <div class="field is-grouped">
+                <p class="control">
+                  <button class="button" id="prevResult" disabled>
+                    <span class="icon"><i class="fas fa-chevron-left"></i></span>
+                    <span>Previous</span>
+                  </button>
+                </p>
+                <p class="control">
+                  <button class="button" id="nextResult" disabled>
+                    <span>Next</span>
+                    <span class="icon"><i class="fas fa-chevron-right"></i></span>
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="has-text-centered">
+          <p class="help" id="resultCount">-</p>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" id="searchButton">
+        <span class="icon"><i class="fas fa-search"></i></span>
+        <span>Search</span>
+      </button>
+      <button class="button is-info" id="viewResult" style="display: none;">
+        <span class="icon"><i class="fas fa-eye"></i></span>
+        <span>View This Date</span>
+      </button>
+      <button class="button" id="cancelFilter">Cancel</button>
+    </footer>
+  </div>
+</div>
+
 <div class="footer-bar">
   <footer class="footer has-background-light">
     <div class="content has-text-centered">

@@ -1,5 +1,7 @@
 // Store crossing data globally
 let currentCrossingData = [];
+let filteredResults = [];
+let currentResultIndex = 0;
 
 // Function to format date in "1st Aug 2025" format
 function formatDateRange(dateStr) {
@@ -235,6 +237,180 @@ function updateCrossingResults() {
 }
 
 
+// Modal functionality
+function showModal() {
+    const modal = document.getElementById('filterModal');
+    modal.classList.add('is-active');
+    
+    // Set default date range (today to 3 months ahead)
+    const today = new Date();
+    const threeMonthsAhead = new Date(today);
+    threeMonthsAhead.setMonth(threeMonthsAhead.getMonth() + 3);
+    
+    document.getElementById('dateFrom').value = today.toISOString().split('T')[0];
+    document.getElementById('dateUntil').value = threeMonthsAhead.toISOString().split('T')[0];
+    
+    // Check all days by default
+    document.querySelectorAll('input[type="checkbox"][id^="day-"]').forEach(cb => cb.checked = true);
+    
+    // Hide results initially
+    document.getElementById('searchResults').style.display = 'none';
+    document.getElementById('viewResult').style.display = 'none';
+}
+
+function hideModal() {
+    const modal = document.getElementById('filterModal');
+    modal.classList.remove('is-active');
+}
+
+// Advanced search functionality
+async function performAdvancedSearch() {
+    try {
+        const response = await fetch('./data/tides.json');
+        if (!response.ok) {
+            throw new Error('Tide data not available');
+        }
+        
+        const tideData = await response.json();
+        
+        // Get filter criteria
+        const crossingType = document.getElementById('crossingType').value;
+        const dateFrom = new Date(document.getElementById('dateFrom').value);
+        const dateUntil = new Date(document.getElementById('dateUntil').value);
+        const selectedDays = Array.from(document.querySelectorAll('input[type="checkbox"][id^="day-"]:checked')).map(cb => parseInt(cb.value));
+        const timeFrom = document.getElementById('timeFrom').value;
+        const timeUntil = document.getElementById('timeUntil').value;
+        
+        // Convert time strings to minutes for comparison
+        const timeToMinutes = timeStr => {
+            const [hours, minutes] = timeStr.split(':').map(Number);
+            return hours * 60 + minutes;
+        };
+        
+        const minTime = timeToMinutes(timeFrom);
+        const maxTime = timeToMinutes(timeUntil);
+        
+        // Filter results
+        filteredResults = [];
+        
+        Object.keys(tideData.data).forEach(dateStr => {
+            const date = new Date(dateStr);
+            
+            // Check date range
+            if (date < dateFrom || date > dateUntil) return;
+            
+            // Check day of week
+            if (!selectedDays.includes(date.getDay())) return;
+            
+            // Check each crossing for this date
+            tideData.data[dateStr].forEach((crossing, index) => {
+                let crossingTime, crossingLabel;
+                
+                if (crossingType === 'pilgrim') {
+                    // Calculate pilgrim optimal time (90min before midpoint)
+                    const startTime = new Date(`1970-01-01T${crossing.start}:00`);
+                    const endTime = new Date(`1970-01-01T${crossing.end}:00`);
+                    
+                    if (endTime < startTime) {
+                        endTime.setDate(endTime.getDate() + 1);
+                    }
+                    
+                    const duration = endTime - startTime;
+                    const midpoint = new Date(startTime.getTime() + duration / 2);
+                    const optimalStart = new Date(midpoint.getTime() - 90 * 60 * 1000);
+                    
+                    crossingTime = optimalStart.getHours() * 60 + optimalStart.getMinutes();
+                    crossingLabel = `${optimalStart.toTimeString().substring(0, 5)} - ${midpoint.toTimeString().substring(0, 5)}`;
+                } else {
+                    // Use causeway start time
+                    const [hours, minutes] = crossing.start.split(':').map(Number);
+                    crossingTime = hours * 60 + minutes;
+                    crossingLabel = `${crossing.start} - ${crossing.end}`;
+                }
+                
+                // Check time range
+                if (crossingTime >= minTime && crossingTime <= maxTime) {
+                    filteredResults.push({
+                        date: dateStr,
+                        crossing: crossing,
+                        crossingIndex: index,
+                        crossingLabel: crossingLabel,
+                        daylight: crossing.daylight
+                    });
+                }
+            });
+        });
+        
+        // Sort by date
+        filteredResults.sort((a, b) => new Date(a.date) - new Date(b.date));
+        
+        // Show results
+        currentResultIndex = 0;
+        displaySearchResults();
+        
+    } catch (error) {
+        alert('Error searching crossing data: ' + error.message);
+    }
+}
+
+function displaySearchResults() {
+    const resultsDiv = document.getElementById('searchResults');
+    const resultDate = document.getElementById('resultDate');
+    const resultDetails = document.getElementById('resultDetails');
+    const resultCount = document.getElementById('resultCount');
+    const prevButton = document.getElementById('prevResult');
+    const nextButton = document.getElementById('nextResult');
+    const viewButton = document.getElementById('viewResult');
+    
+    if (filteredResults.length === 0) {
+        resultsDiv.style.display = 'block';
+        resultDate.textContent = 'No crossings found';
+        resultDetails.textContent = 'Try adjusting your search criteria';
+        resultCount.textContent = '';
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+        viewButton.style.display = 'none';
+        return;
+    }
+    
+    const result = filteredResults[currentResultIndex];
+    
+    resultsDiv.style.display = 'block';
+    resultDate.textContent = formatDateRange(result.date);
+    resultDetails.textContent = `${result.crossingLabel} ${result.daylight ? '☀️' : '🌙'}`;
+    resultCount.textContent = `${currentResultIndex + 1} of ${filteredResults.length} matches`;
+    
+    prevButton.disabled = currentResultIndex === 0;
+    nextButton.disabled = currentResultIndex === filteredResults.length - 1;
+    viewButton.style.display = 'inline-flex';
+}
+
+function navigateResults(direction) {
+    if (direction === 'prev' && currentResultIndex > 0) {
+        currentResultIndex--;
+    } else if (direction === 'next' && currentResultIndex < filteredResults.length - 1) {
+        currentResultIndex++;
+    }
+    displaySearchResults();
+}
+
+function viewSelectedResult() {
+    if (filteredResults.length > 0) {
+        const result = filteredResults[currentResultIndex];
+        
+        // Set the date in the main form
+        document.getElementById('crossingDate').value = result.date;
+        
+        // Load the tide data for that date
+        const selectedDate = new Date(result.date + 'T00:00:00');
+        updateShowCrossingDate(result.date);
+        loadTideData(selectedDate);
+        
+        // Close the modal
+        hideModal();
+    }
+}
+
 // Set today's date as default and try to load tide data
 document.addEventListener('DOMContentLoaded', function() {
     const dateInput = document.getElementById('crossingDate');
@@ -256,5 +432,15 @@ document.addEventListener('DOMContentLoaded', function() {
         updateShowCrossingDate(event.target.value);
         loadTideData(selectedDate);
     });
+    
+    // Modal event listeners
+    document.getElementById('filterButton').addEventListener('click', showModal);
+    document.querySelector('#filterModal .delete').addEventListener('click', hideModal);
+    document.querySelector('#filterModal .modal-background').addEventListener('click', hideModal);
+    document.getElementById('cancelFilter').addEventListener('click', hideModal);
+    document.getElementById('searchButton').addEventListener('click', performAdvancedSearch);
+    document.getElementById('prevResult').addEventListener('click', () => navigateResults('prev'));
+    document.getElementById('nextResult').addEventListener('click', () => navigateResults('next'));
+    document.getElementById('viewResult').addEventListener('click', viewSelectedResult);
 });
 
