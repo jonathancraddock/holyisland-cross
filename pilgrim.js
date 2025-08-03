@@ -3,9 +3,10 @@ let currentCrossingData = [];
 let filteredResults = [];
 let currentResultIndex = 0;
 
-// Function to format date in "1st Aug 2025" format
+// Function to format date in "Wed 29th Oct 2025" format
 function formatDateRange(dateStr) {
     const date = new Date(dateStr);
+    const weekday = date.toLocaleDateString('en-GB', { weekday: 'short' });
     const day = date.getDate();
     const month = date.toLocaleDateString('en-GB', { month: 'short' });
     const year = date.getFullYear();
@@ -17,7 +18,7 @@ function formatDateRange(dateStr) {
         return day + (s[(v - 20) % 10] || s[v] || s[0]);
     };
     
-    return `${ordinal(day)} ${month} ${year}`;
+    return `${weekday} ${ordinal(day)} ${month} ${year}`;
 }
 
 // Function to update date label with available range
