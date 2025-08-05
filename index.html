@@ -53,6 +53,22 @@
   <div id="crossingResults">
   <!-- Crossing times table will appear here -->
   </div>
+  <div id="dateNavigation" class="has-text-centered" style="display: none;">
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button id="prevDate" class="button">
+          <span class="icon"><i class="fas fa-chevron-left"></i></span>
+          <span>Previous Day</span>
+        </button>
+      </div>
+      <div class="control">
+        <button id="nextDate" class="button">
+          <span>Next Day</span>
+          <span class="icon"><i class="fas fa-chevron-right"></i></span>
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="block">
@@ -80,20 +96,11 @@
   <div class="modal-background"></div>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Find Your Perfect Crossing</p>
+      <p class="modal-card-title">Find the perfect Pilgrim's Crossing</p>
       <button class="delete" aria-label="close"></button>
     </header>
     <section class="modal-card-body">
       <div class="field">
-        <label class="label">Crossing Type:</label>
-        <div class="control">
-          <div class="select is-fullwidth">
-            <select id="crossingType">
-              <option value="pilgrim">Pilgrim's Way Crossing</option>
-              <option value="causeway">Causeway Crossing</option>
-            </select>
-          </div>
-        </div>
         <p class="help">The optimal Pilgrim's Way timing aims to complete the crossing on a receding tide. This calculation is based on a start time 90 minutes before the causeway safe-crossing midpoint.</p>
       </div>
 

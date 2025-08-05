@@ -2,6 +2,7 @@
 let currentCrossingData = [];
 let filteredResults = [];
 let currentResultIndex = 0;
+let selectedCrossingIndex = -1; // Track which crossing was selected from modal
 
 // Function to format date in "Wed 29th Oct 2025" format
 function formatDateRange(dateStr) {
@@ -203,8 +204,11 @@ function updateCrossingResults() {
         // Daylight icon
         const daylightIcon = crossing.daylight ? '☀️' : '🌙';
         
+        // Highlight selected crossing
+        const highlightClass = selectedCrossingIndex === index ? ' has-background-info-light' : '';
+        
         tableHTML += `
-            <tr>
+            <tr${highlightClass}>
                 <td>${index + 1}.) </td>
                 <td>${causalwaySafe}</td>
                 <td>${pilgrimOptimal}</td>
@@ -224,6 +228,14 @@ function updateCrossingResults() {
     `;
     
     resultsDiv.innerHTML = tableHTML;
+    
+    // Show/hide navigation buttons
+    const navButtons = document.getElementById('dateNavigation');
+    if (currentCrossingData.length > 0) {
+        navButtons.style.display = 'block';
+    } else {
+        navButtons.style.display = 'none';
+    }
     
     // Note: Date is already correctly displayed in the table header from currentCrossingData[0].date
     
@@ -273,7 +285,7 @@ async function performAdvancedSearch() {
         const tideData = await response.json();
         
         // Get filter criteria
-        const crossingType = document.getElementById('crossingType').value;
+        const crossingType = 'pilgrim'; // Always use pilgrim crossing
         const dateFrom = new Date(document.getElementById('dateFrom').value + 'T00:00:00');
         const dateUntil = new Date(document.getElementById('dateUntil').value + 'T00:00:00');
         const selectedDays = Array.from(document.querySelectorAll('input[type="checkbox"][id^="day-"]:checked')).map(cb => parseInt(cb.value));
@@ -401,6 +413,9 @@ function viewSelectedResult() {
         // Set the date in the main form
         document.getElementById('crossingDate').value = result.date;
         
+        // Store which crossing was selected for highlighting
+        selectedCrossingIndex = result.crossingIndex;
+        
         // Load the tide data for that date
         const selectedDate = new Date(result.date + 'T00:00:00');
         updateShowCrossingDate(result.date);
@@ -409,6 +424,31 @@ function viewSelectedResult() {
         // Close the modal
         hideModal();
     }
+}
+
+// Date navigation functions
+function navigateDate(direction) {
+    const dateInput = document.getElementById('crossingDate');
+    const currentDate = new Date(dateInput.value + 'T00:00:00');
+    
+    // Calculate new date
+    const newDate = new Date(currentDate);
+    if (direction === 'prev') {
+        newDate.setDate(newDate.getDate() - 1);
+    } else if (direction === 'next') {
+        newDate.setDate(newDate.getDate() + 1);
+    }
+    
+    // Format new date for input field
+    const newDateStr = newDate.getFullYear() + '-' + 
+                       String(newDate.getMonth() + 1).padStart(2, '0') + '-' + 
+                       String(newDate.getDate()).padStart(2, '0');
+    
+    // Update date input and load new data
+    dateInput.value = newDateStr;
+    selectedCrossingIndex = -1; // Clear selection when navigating
+    updateShowCrossingDate(newDateStr);
+    loadTideData(newDate);
 }
 
 // Set today's date as default and try to load tide data
@@ -432,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add event listener for date changes
     dateInput.addEventListener('change', function(event) {
         const selectedDate = new Date(event.target.value + 'T00:00:00');
+        selectedCrossingIndex = -1; // Clear selection when manually changing date
         updateShowCrossingDate(event.target.value);
         loadTideData(selectedDate);
     });
@@ -445,5 +486,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prevResult').addEventListener('click', () => navigateResults('prev'));
     document.getElementById('nextResult').addEventListener('click', () => navigateResults('next'));
     document.getElementById('viewResult').addEventListener('click', viewSelectedResult);
+    
+    // Date navigation event listeners
+    document.getElementById('prevDate').addEventListener('click', () => navigateDate('prev'));
+    document.getElementById('nextDate').addEventListener('click', () => navigateDate('next'));
 });
 

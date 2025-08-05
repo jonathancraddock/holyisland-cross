@@ -2,6 +2,10 @@
     padding: 1rem 1.5rem; 
 }
 
+p {
+  margin-bottom: 0.7em;
+}
+
 ul { 
     list-style: circle inside; margin: .6rem; 
 }
