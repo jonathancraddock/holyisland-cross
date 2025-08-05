@@ -3,6 +3,7 @@ let currentCrossingData = [];
 let filteredResults = [];
 let currentResultIndex = 0;
 let selectedCrossingIndex = -1; // Track which crossing was selected from modal
+let savedSelectedDays = []; // Remember selected days in modal
 
 // Function to format date in "Wed 29th Oct 2025" format
 function formatDateRange(dateStr) {
@@ -205,7 +206,7 @@ function updateCrossingResults() {
         const daylightIcon = crossing.daylight ? '☀️' : '🌙';
         
         // Highlight selected crossing cell
-        const pilgrimCellClass = selectedCrossingIndex === index ? ' class="has-background-info-light"' : '';
+        const pilgrimCellClass = selectedCrossingIndex === index ? ' class="highlightTime"' : '';
         
         tableHTML += `
             <tr>
@@ -261,8 +262,16 @@ function showModal() {
     document.getElementById('dateFrom').value = today.toISOString().split('T')[0];
     document.getElementById('dateUntil').value = threeMonthsAhead.toISOString().split('T')[0];
     
-    // Check all days by default
-    document.querySelectorAll('input[type="checkbox"][id^="day-"]').forEach(cb => cb.checked = true);
+    // Restore previously selected days, or check all days by default
+    if (savedSelectedDays.length > 0) {
+        // Restore previous selection
+        document.querySelectorAll('input[type="checkbox"][id^="day-"]').forEach(cb => {
+            cb.checked = savedSelectedDays.includes(parseInt(cb.value));
+        });
+    } else {
+        // First time - check all days by default
+        document.querySelectorAll('input[type="checkbox"][id^="day-"]').forEach(cb => cb.checked = true);
+    }
     
     // Hide results initially
     document.getElementById('searchResults').style.display = 'none';
@@ -270,6 +279,9 @@ function showModal() {
 }
 
 function hideModal() {
+    // Save selected days before closing
+    savedSelectedDays = Array.from(document.querySelectorAll('input[type="checkbox"][id^="day-"]:checked')).map(cb => parseInt(cb.value));
+    
     const modal = document.getElementById('filterModal');
     modal.classList.remove('is-active');
 }

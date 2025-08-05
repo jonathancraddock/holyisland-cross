@@ -18,6 +18,19 @@ ul {
     margin-top: 2rem; 
 }
 
+.highlightTime {
+  padding: 0.3em;
+  font-weight: bold;
+  margin-left: -0.5em;
+  background-color: #fce10096;
+}
+
+/* Center table columns for better desktop layout */
+#crossingResults table th,
+#crossingResults table td {
+  text-align: center;
+}
+
 /* Mobile Width */
 @media screen and (max-width: 576px) { 
     
