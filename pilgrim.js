@@ -204,14 +204,14 @@ function updateCrossingResults() {
         // Daylight icon
         const daylightIcon = crossing.daylight ? '☀️' : '🌙';
         
-        // Highlight selected crossing
-        const highlightClass = selectedCrossingIndex === index ? ' has-background-info-light' : '';
+        // Highlight selected crossing cell
+        const pilgrimCellClass = selectedCrossingIndex === index ? ' class="has-background-info-light"' : '';
         
         tableHTML += `
-            <tr${highlightClass}>
+            <tr>
                 <td>${index + 1}.) </td>
                 <td>${causalwaySafe}</td>
-                <td>${pilgrimOptimal}</td>
+                <td${pilgrimCellClass}>${pilgrimOptimal}</td>
                 <td style="text-align: center;">${daylightIcon}</td>
             </tr>
         `;
