@@ -4,6 +4,8 @@ let filteredResults = [];
 let currentResultIndex = 0;
 let selectedCrossingIndex = -1; // Track which crossing was selected from modal
 let savedSelectedDays = []; // Remember selected days in modal
+let availableFirstDate = null; // First available date in tide data
+let availableLastDate = null; // Last available date in tide data
 
 // Function to format date in "Wed 29th Oct 2025" format
 function formatDateRange(dateStr) {
@@ -35,6 +37,10 @@ async function updateDateLabel() {
         if (tideData.data) {
             const dates = Object.keys(tideData.data).sort();
             if (dates.length > 0) {
+                // Store raw date strings globally for boundary checking
+                availableFirstDate = dates[0];
+                availableLastDate = dates[dates.length - 1];
+                
                 const firstDate = formatDateRange(dates[0]);
                 const lastDate = formatDateRange(dates[dates.length - 1]);
                 
@@ -433,9 +439,34 @@ function viewSelectedResult() {
         updateShowCrossingDate(result.date);
         loadTideData(selectedDate);
         
+        // Update navigation button states
+        updateNavigationButtons();
+        
         // Close the modal
         hideModal();
     }
+}
+
+// Function to update navigation button states based on available date range
+function updateNavigationButtons() {
+    const dateInput = document.getElementById('crossingDate');
+    const prevButton = document.getElementById('prevDate');
+    const nextButton = document.getElementById('nextDate');
+    
+    if (!availableFirstDate || !availableLastDate || !dateInput.value) {
+        // If no date range available or no current date, disable both buttons
+        prevButton.disabled = true;
+        nextButton.disabled = true;
+        return;
+    }
+    
+    const currentDate = dateInput.value; // Already in YYYY-MM-DD format
+    
+    // Disable previous button if at or before first available date
+    prevButton.disabled = currentDate <= availableFirstDate;
+    
+    // Disable next button if at or after last available date
+    nextButton.disabled = currentDate >= availableLastDate;
 }
 
 // Date navigation functions
@@ -461,6 +492,9 @@ function navigateDate(direction) {
     selectedCrossingIndex = -1; // Clear selection when navigating
     updateShowCrossingDate(newDateStr);
     loadTideData(newDate);
+    
+    // Update navigation button states
+    updateNavigationButtons();
 }
 
 // Set today's date as default and try to load tide data
@@ -473,7 +507,10 @@ document.addEventListener('DOMContentLoaded', function() {
     dateInput.value = todayStr;
     
     // Update the date label with available range
-    updateDateLabel();
+    updateDateLabel().then(() => {
+        // Update navigation buttons after date range is loaded
+        updateNavigationButtons();
+    });
     
     // Update the showCrossingDate span with today's date
     updateShowCrossingDate(todayStr);
@@ -487,6 +524,9 @@ document.addEventListener('DOMContentLoaded', function() {
         selectedCrossingIndex = -1; // Clear selection when manually changing date
         updateShowCrossingDate(event.target.value);
         loadTideData(selectedDate);
+        
+        // Update navigation button states
+        updateNavigationButtons();
     });
     
     // Modal event listeners
