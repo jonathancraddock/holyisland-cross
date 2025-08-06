@@ -183,7 +183,7 @@ function updateCrossingResults() {
                             <th>&nbsp;</th>
                             <th>Causeway Safe Crossing</th>
                             <th>Pilgrim Optimal Crossing</th>
-                            <th>Day</th>
+                            <th>Day?</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -490,6 +490,11 @@ function navigateDate(direction) {
         newDate.setDate(newDate.getDate() - 1);
     } else if (direction === 'next') {
         newDate.setDate(newDate.getDate() + 1);
+    } else if (direction === 'today') {
+        const today = new Date();
+        newDate.setFullYear(today.getFullYear());
+        newDate.setMonth(today.getMonth());
+        newDate.setDate(today.getDate());
     }
     
     // Format new date for input field
@@ -551,6 +556,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Date navigation event listeners
     document.getElementById('prevDate').addEventListener('click', () => navigateDate('prev'));
+    document.getElementById('todayDate').addEventListener('click', () => navigateDate('today'));
     document.getElementById('nextDate').addEventListener('click', () => navigateDate('next'));
 });
 
