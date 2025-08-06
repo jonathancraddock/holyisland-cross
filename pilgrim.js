@@ -139,15 +139,15 @@ function displayDaylightInfo(photographyData) {
                     <td><strong>${photographyData.day_length}</strong></td>
                 </tr>
                 <tr>
-                    <td>Noon</td>
+                    <td>Solar Noon</td>
                     <td><strong>${photographyData.solar_noon}</strong></td>
                 </tr>
                 <tr>
-                    <td>Golden Hour (Morning)</td>
+                    <td>Golden Hour (AM)</td>
                     <td><strong>${photographyData.golden_hour_morning}</strong></td>
                 </tr>
                 <tr>
-                    <td>Golden Hour (Evening)</td>
+                    <td>Golden Hour (PM)</td>
                     <td><strong>${photographyData.golden_hour_evening}</strong></td>
                 </tr>
             </tbody>
