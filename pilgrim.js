@@ -228,7 +228,7 @@ function updateCrossingResults() {
                     </tbody>
                 </table>
                 <p class="is-size-8 has-text-grey">
-                    <em>The table shows an optimal Pilgrim's Crossing time (allowing 90 minutes) but always assess the local conditions before embarking on this walk.</em>
+                    <em>The table shows an optimal Pilgrim's Way crossing time (allowing 90 minutes) but always assess the local conditions before embarking on this walk.</em>
                 </p>
             </div>
         </div>
