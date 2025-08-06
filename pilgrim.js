@@ -44,9 +44,9 @@ async function updateDateLabel() {
                 const firstDate = formatDateRange(dates[0]);
                 const lastDate = formatDateRange(dates[dates.length - 1]);
                 
-                const dateLabel = document.getElementById('dateSelectField');
-                if (dateLabel) {
-                    dateLabel.textContent = `Date: (${firstDate} - ${lastDate})`;
+                const tideDateRange = document.getElementById('tideDateRange');
+                if (tideDateRange) {
+                    tideDateRange.textContent = `(Tide data available: ${firstDate} - ${lastDate}.)`;
                 }
             }
         }
