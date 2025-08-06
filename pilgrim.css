@@ -6,6 +6,11 @@ p {
   margin-bottom: 0.7em;
 }
 
+.subtitle {
+  margin-top: 2rem;
+  font-weight: 600;
+}
+
 .help {
   font-size: 0.9rem;
 }
