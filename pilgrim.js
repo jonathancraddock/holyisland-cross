@@ -400,6 +400,11 @@ function displaySearchResults() {
         prevButton.disabled = true;
         nextButton.disabled = true;
         viewButton.style.display = 'none';
+        
+        // Scroll to results section after display
+        setTimeout(() => {
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
         return;
     }
     
@@ -413,6 +418,11 @@ function displaySearchResults() {
     prevButton.disabled = currentResultIndex === 0;
     nextButton.disabled = currentResultIndex === filteredResults.length - 1;
     viewButton.style.display = 'inline-flex';
+    
+    // Scroll to results section after display
+    setTimeout(() => {
+        resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
 }
 
 function navigateResults(direction) {

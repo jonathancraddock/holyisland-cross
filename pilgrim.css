@@ -6,6 +6,10 @@ p {
   margin-bottom: 0.7em;
 }
 
+.help {
+  font-size: 0.9rem;
+}
+
 ul { 
     list-style: circle inside; margin: .6rem; 
 }
