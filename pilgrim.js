@@ -127,8 +127,16 @@ function displayDaylightInfo(photographyData) {
                     <td><strong>${photographyData.sunrise}</strong></td>
                 </tr>
                 <tr>
+                    <td>Golden Hour (AM)</td>
+                    <td><strong>${photographyData.golden_hour_morning}</strong></td>
+                </tr>
+                <tr>
                     <td>Solar Noon</td>
                     <td><strong>${photographyData.solar_noon}</strong></td>
+                </tr>
+                <tr>
+                    <td>Golden Hour (PM)</td>
+                    <td><strong>${photographyData.golden_hour_evening}</strong></td>
                 </tr>
                 <tr>
                     <td>Sunset</td>
@@ -141,14 +149,6 @@ function displayDaylightInfo(photographyData) {
                 <tr>
                     <td>Day Length</td>
                     <td><strong>${photographyData.day_length}</strong></td>
-                </tr>
-                <tr>
-                    <td>Golden Hour (AM)</td>
-                    <td><strong>${photographyData.golden_hour_morning}</strong></td>
-                </tr>
-                <tr>
-                    <td>Golden Hour (PM)</td>
-                    <td><strong>${photographyData.golden_hour_evening}</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -181,8 +181,8 @@ function updateCrossingResults() {
                     <thead>
                         <tr>
                             <th>&nbsp;</th>
-                            <th>Causeway Safe Crossing</th>
-                            <th>Pilgrim Optimal Crossing</th>
+                            <th>Causeway ROAD</th>
+                            <th>Pilgrim WALK</th>
                             <th>Day?</th>
                         </tr>
                     </thead>
