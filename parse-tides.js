@@ -16,8 +16,9 @@ function timeToMinutes(timeStr) {
 }
 
 function minutesToTime(minutes) {
-    const hours = Math.floor(minutes / 60) % 24;
-    const mins = minutes % 60;
+    const rounded = Math.round(minutes);
+    const hours = Math.floor(rounded / 60) % 24;
+    const mins = rounded % 60;
     return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
 }
 
