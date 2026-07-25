@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-25T00:05:53.624Z",
+  "lastUpdated": "2026-07-25T00:47:58.542Z",
   "source": "Northumberland Council Holy Island Crossing Times",
   "months": [
     "January 2026",
@@ -10319,6 +10319,25 @@
     "2026-03-29": [
       {
         "type": "safe",
+        "start": "03:15",
+        "end": "11:20",
+        "startDate": "2026-03-29",
+        "endDate": "2026-03-29",
+        "midpoint": "07:18",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:45",
+          "sunset": "19:39",
+          "dawn": "06:08",
+          "dusk": "20:17",
+          "solar_noon": "13:11",
+          "golden_hour_morning": "06:45-07:45",
+          "golden_hour_evening": "18:50-19:39",
+          "day_length": "12:53:55"
+        }
+      },
+      {
+        "type": "safe",
         "start": "15:45",
         "end": "23:55",
         "startDate": "2026-03-29",
@@ -11438,6 +11457,25 @@
           "golden_hour_evening": "17:46-18:35",
           "day_length": "12:43:34"
         }
+      },
+      {
+        "type": "safe",
+        "start": "21:00",
+        "end": "05:25",
+        "startDate": "2027-03-27",
+        "endDate": "2027-03-28",
+        "midpoint": "01:13",
+        "daylight": false,
+        "photography": {
+          "sunrise": "05:51",
+          "sunset": "18:35",
+          "dawn": "05:14",
+          "dusk": "19:12",
+          "solar_noon": "12:12",
+          "golden_hour_morning": "05:51-06:51",
+          "golden_hour_evening": "17:46-18:35",
+          "day_length": "12:43:34"
+        }
       }
     ],
     "2027-03-28": [
@@ -12544,6 +12582,25 @@
       }
     ],
     "2028-03-26": [
+      {
+        "type": "safe",
+        "start": "07:10",
+        "end": "13:55",
+        "startDate": "2028-03-26",
+        "endDate": "2028-03-26",
+        "midpoint": "10:33",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:52",
+          "sunset": "19:34",
+          "dawn": "06:14",
+          "dusk": "20:11",
+          "solar_noon": "13:12",
+          "golden_hour_morning": "06:52-07:52",
+          "golden_hour_evening": "18:45-19:34",
+          "day_length": "12:42:27"
+        }
+      },
       {
         "type": "safe",
         "start": "19:30",
@@ -13674,6 +13731,25 @@
         "endDate": "2029-03-24",
         "midpoint": "15:18",
         "daylight": true,
+        "photography": {
+          "sunrise": "05:57",
+          "sunset": "18:30",
+          "dawn": "05:20",
+          "dusk": "19:07",
+          "solar_noon": "12:13",
+          "golden_hour_morning": "05:57-06:57",
+          "golden_hour_evening": "17:41-18:30",
+          "day_length": "12:32:05"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "23:20",
+        "end": "09:35",
+        "startDate": "2029-03-24",
+        "endDate": "2029-03-25",
+        "midpoint": "04:28",
+        "daylight": false,
         "photography": {
           "sunrise": "05:57",
           "sunset": "18:30",
@@ -45601,6 +45677,25 @@
           "golden_hour_evening": "16:49-17:43",
           "day_length": "9:45:08"
         }
+      },
+      {
+        "type": "safe",
+        "start": "20:50",
+        "end": "03:10",
+        "startDate": "2025-10-25",
+        "endDate": "2025-10-26",
+        "midpoint": "00:00",
+        "daylight": false,
+        "photography": {
+          "sunrise": "07:58",
+          "sunset": "17:43",
+          "dawn": "07:19",
+          "dusk": "18:21",
+          "solar_noon": "12:51",
+          "golden_hour_morning": "07:58-08:58",
+          "golden_hour_evening": "16:49-17:43",
+          "day_length": "9:45:08"
+        }
       }
     ],
     "2025-10-26": [
@@ -46747,6 +46842,25 @@
       }
     ],
     "2026-10-25": [
+      {
+        "type": "safe",
+        "start": "05:05",
+        "end": "11:40",
+        "startDate": "2026-10-25",
+        "endDate": "2026-10-25",
+        "midpoint": "08:23",
+        "daylight": true,
+        "photography": {
+          "sunrise": "06:57",
+          "sunset": "16:43",
+          "dawn": "06:19",
+          "dusk": "17:22",
+          "solar_noon": "11:51",
+          "golden_hour_morning": "06:57-07:57",
+          "golden_hour_evening": "15:49-16:43",
+          "day_length": "9:46:12"
+        }
+      },
       {
         "type": "safe",
         "start": "17:40",
@@ -48148,6 +48262,25 @@
           "golden_hour_evening": "16:37-17:33",
           "day_length": "9:25:35"
         }
+      },
+      {
+        "type": "safe",
+        "start": "19:45",
+        "end": "01:45",
+        "startDate": "2027-10-30",
+        "endDate": "2027-10-31",
+        "midpoint": "22:45",
+        "daylight": false,
+        "photography": {
+          "sunrise": "08:07",
+          "sunset": "17:33",
+          "dawn": "07:28",
+          "dusk": "18:12",
+          "solar_noon": "12:50",
+          "golden_hour_morning": "08:07-09:07",
+          "golden_hour_evening": "16:37-17:33",
+          "day_length": "9:25:35"
+        }
       }
     ],
     "2027-10-31": [
@@ -49275,6 +49408,25 @@
     "2028-10-29": [
       {
         "type": "safe",
+        "start": "02:10",
+        "end": "10:30",
+        "startDate": "2028-10-29",
+        "endDate": "2028-10-29",
+        "midpoint": "06:20",
+        "daylight": false,
+        "photography": {
+          "sunrise": "07:07",
+          "sunset": "16:33",
+          "dawn": "06:28",
+          "dusk": "17:12",
+          "solar_noon": "11:50",
+          "golden_hour_morning": "07:07-08:07",
+          "golden_hour_evening": "15:38-16:33",
+          "day_length": "9:26:37"
+        }
+      },
+      {
+        "type": "safe",
         "start": "14:55",
         "end": "22:35",
         "startDate": "2028-10-29",
@@ -50384,6 +50536,25 @@
         "endDate": "2029-10-27",
         "midpoint": "12:50",
         "daylight": true,
+        "photography": {
+          "sunrise": "08:02",
+          "sunset": "17:38",
+          "dawn": "07:23",
+          "dusk": "18:17",
+          "solar_noon": "12:51",
+          "golden_hour_morning": "08:02-09:02",
+          "golden_hour_evening": "16:43-17:38",
+          "day_length": "9:36:18"
+        }
+      },
+      {
+        "type": "safe",
+        "start": "21:20",
+        "end": "04:00",
+        "startDate": "2029-10-27",
+        "endDate": "2029-10-28",
+        "midpoint": "00:40",
+        "daylight": false,
         "photography": {
           "sunrise": "08:02",
           "sunset": "17:38",

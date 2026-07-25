@@ -195,7 +195,8 @@ async function parseTideData(htmlContent, monthYear) {
                     
                     if (classMatch && contentMatch) {
                         const isSafe = classMatch[1] === 'safe';
-                        const timeText = contentMatch[1].trim();
+                        // Strip BST/GMT timezone labels injected around clock-change days
+                        const timeText = contentMatch[1].replace(/\s*<span[^>]*>.*?<\/span>/g, '').trim();
                         
                         if (timeText.includes('until')) {
                             const parsed = parseTimeRange(timeText, baseDate);
