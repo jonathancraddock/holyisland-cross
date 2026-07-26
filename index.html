@@ -1,268 +1,166 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html lang="en-GB">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holy Island Pilgrim's Way</title>
-
-<link rel="icon" type="image/png" href="/user/themes/mootparadox/images/favicon.png">
-<link rel="canonical" href="https://mootparadox.com/webapp/pilgrim">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="./pilgrim.css">
-
-<script>
-  const Http=new XMLHttpRequest()
-  const url='https://mootparadox.com/load?page=/webapp/pilgrim&query=';
-  Http.open("GET",url);Http.send();
-</script>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pilgrim's Way Crossing Times — Walk to Holy Island</title>
+<meta name="description" content="Safe crossing times for walking the Pilgrim's Way to Holy Island (Lindisfarne). Daylight start times worked out from the official Northumberland Council tide tables.">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@500;600&family=Figtree:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="pilgrim.css">
 </head>
 <body>
-<section class="section">
-<div class="container">
-<h1 class="title">Pilgrim's Way Calculator</h1>
 
-<div class="block">
-  <p>Plan your <strong>Pilgrim's Way</strong> crossing to Holy Island, Northumberland, with the help of my calculator! View the times for any date, or use the <em>filter</em> button to refine your search. For example: if you only want to find crossing times on Saturday and Sunday afternoons, after 2pm, for the next three weeks... <em><span id="tideDateRange"></span></em></p>
-  <p><strong>Disclaimer: This information is provided in good faith, but you are responsible for your own safety. (Obviously!)</strong></p>
-</div>
+<div class="page">
 
-<div class="block">
-  <div class="field">
-    <label id="dateSelectField" class="label">Crossing Date</label>
-    <div class="field is-grouped">
-      <div class="control is-expanded has-icons-left">
-        <input class="input" type="date" id="crossingDate">
-        <span class="icon is-small is-left">
-          <i class="fas fa-calendar"></i>
-        </span>
-      </div>
-      <div class="control">
-        <button id="filterButton" class="button is-success">
-          Filter
-        </button>
+  <header class="site-header wrap">
+    <div class="brand">
+      <div class="brand-mark">P</div>
+      <div class="brand-text">
+        <span class="brand-name">Pilgrim's Way</span>
+        <span class="brand-sub">Holy Island crossing times</span>
       </div>
     </div>
-  </div>
-</div>
+    <a class="header-link" href="#how">How it works</a>
+  </header>
 
-<div class="block">
-  <div id="dateNavigation" class="has-text-centered" style="display: none;">
-    <div class="field is-grouped is-grouped-centered">
-      <div class="control">
-        <button id="prevDate" class="button">
-          <span class="icon"><i class="fas fa-chevron-left"></i></span>
-          <span>Previous Day</span>
-        </button>
+  <main class="wrap">
+
+    <section class="intro">
+      <h1>Walk the Pilgrim's Way to Holy Island</h1>
+      <p class="lede">I've calculated the best start time for every safe crossing of the Pilgrim's Way to Holy Island (Lindisfarne), so you don't have to read a tide table. Pick a date below, or choose the days and times that suit you and I'll show you the crossings that fit.</p>
+      <p class="lede">No ads, no tracking, no charge. But, a <a href="https://ko-fi.com/mootparadox" target="_blank" rel="noopener">coffee</a> would be gratefully received.</p>
+    </section>
+
+    <section class="safety">
+      <strong>Make the Pilgrim's Way crossing in daylight, on a receding tide.</strong> This site will help you to schedule your walk, but you must check the weather and sea conditions before you set off. You are responsible for your own safety.
+    </section>
+
+    <section class="panel" id="hero-panel">
+      <div class="panel-head">
+        <h6>Next crossing</h6>
+        <span class="countdown"><span id="hero-countdown"></span><span class="badge" id="hero-est"></span></span>
       </div>
-      <div class="control">
-        <button id="todayDate" class="button">
-          <span class="icon"><i class="fas fa-home"></i></span>
-          <span>Today</span>
-        </button>
-      </div>
-      <div class="control">
-        <button id="nextDate" class="button">
-          <span>Next Day</span>
-          <span class="icon"><i class="fas fa-chevron-right"></i></span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+      <div id="hero-body"></div>
+    </section>
 
-<div class="block">
-  <div id="crossingResults">
-  <!-- Crossing times table will appear here -->
-  </div>
-</div>
-
-<div class="block">
-  <div id="daylightInfo">
-  <!-- Daylight information will appear here -->
-  </div>
-</div>
-
-<div class="block">
-  <p>The Pilgrim's Way crosses Holy Island Sands and should only be attempted in daylight and during the latter part of a receding tide. Always check current weather conditions before attempting the crossing.</p>
-  <ul>
-  <li>Belvue's <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/" target="_blank">Walking Guide</a></li>
-  <li>Holy Island <a href="https://holyislandcrossingtimes.northumberland.gov.uk/" target="_blank">Crossing Times</a></li>
-  <li>Yr.No/En <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/" target="_blank">weather forecast</a></li>
-  <li>Wikipedia <a href="https://en.wikipedia.org/wiki/Lindisfarne" target="_blank">Holy Island / Lindisfarne</a></li>
-  <li>Croft Cabs (Belford): 07803 496 278</li>
-  <li>Border Buses: <a href="https://www.bordersbuses.co.uk/services/PERY/477?direction=inbound" target="_blank">477 (Times)</a></li>
-  </ul>
-  <h2 class="subtitle">How it works</h2>
-  <p>I used the data provided by Northumberland council and have pre-calculated the <em>midpoint</em> of each causeway safe crossing time. By subtracting 90 minutes from this, you can calculate an optimal start time to walk the Pilgrim's Way.</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- Advanced Filter Modal -->
-<div id="filterModal" class="modal">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Holy Island Pilgrim's Way</p>
-      <button class="delete" aria-label="close"></button>
-    </header>
-    <section class="modal-card-body">
-      <div class="field">
-        <p class="help">If you have specific weekday and timing requirements for your <em>Pilgrim's Way</em> crossing, use the filters below to refine your search.</p>
-      </div>
-
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <label class="label">Search From:</label>
-            <div class="control">
-              <input class="input" type="date" id="dateFrom">
-            </div>
-          </div>
+    <section class="day-section" id="day-section">
+      <div class="day-head">
+        <div>
+          <h2 id="day-heading">Today's crossings</h2>
+          <p class="day-sub" id="day-summary"></p>
         </div>
-        <div class="column">
-          <div class="field">
-            <label class="label">Search Until:</label>
-            <div class="control">
-              <input class="input" type="date" id="dateUntil">
-            </div>
-          </div>
+        <div class="day-nav">
+          <button type="button" class="icon-btn" data-action="prev-day" aria-label="Previous day">&lsaquo;</button>
+          <input type="date" id="day-input">
+          <button type="button" class="pill-btn" data-action="today">Today</button>
+          <button type="button" class="icon-btn" data-action="next-day" aria-label="Next day">&rsaquo;</button>
+        </div>
+      </div>
+      <div class="cards" id="day-cards"></div>
+      <div id="day-empty"></div>
+    </section>
+
+    <section class="search-section">
+      <h2>Find a crossing that suits you</h2>
+      <p class="search-intro">Start with one of these, or set your own days and times below.</p>
+
+      <div class="presets" id="presets"></div>
+
+      <div class="search-panel">
+        <div class="search-grid">
+          <label>
+            <span class="field-label">Between these dates</span>
+            <input type="date" id="search-from">
+          </label>
+          <label>
+            <span class="field-label">and</span>
+            <input type="date" id="search-until">
+          </label>
+          <label>
+            <span class="field-label">Set off no earlier than</span>
+            <input type="time" id="from-time" value="13:00">
+          </label>
+          <label>
+            <span class="field-label">and no later than</span>
+            <input type="time" id="until-time" value="18:00">
+          </label>
+        </div>
+
+        <div class="days-block">
+          <span class="field-label">Days that work for me</span>
+          <div class="daychips" id="daychips"></div>
+        </div>
+
+        <div class="search-actions">
+          <button type="button" class="btn btn-primary" data-action="search">Show me these crossings</button>
+          <span class="plain" id="plain-summary"></span>
         </div>
       </div>
 
-      <div class="field">
-        <label class="label">Preferred Days</label>
-        <p class="help">Select your preferred days.</p>
-        <div class="field is-grouped is-grouped-multiline">
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-mon" value="1"> Monday
-            </label>
-          </div>
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-tue" value="2"> Tuesday
-            </label>
-          </div>
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-wed" value="3"> Wednesday
-            </label>
-          </div>
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-thu" value="4"> Thursday
-            </label>
-          </div>
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-fri" value="5"> Friday
-            </label>
-          </div>
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-sat" value="6"> Saturday
-            </label>
-          </div>
-          <div class="control">
-            <label class="checkbox">
-              <input type="checkbox" id="day-sun" value="0"> Sunday
-            </label>
-          </div>
+      <div id="results-anchor"></div>
+      <div id="results-wrap"></div>
+    </section>
+
+    <section class="how" id="how">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <p>Northumberland County Council publishes the times when the causeway and sands are safe. I've taken that data and found the <em>midpoint</em> of every safe window.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <p>Set off 90 to 120 minutes before that midpoint and the tide is still falling all the way across — you'll be off the sands well before it turns.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <p>I only show crossings that fall in daylight. The Pilgrim's Way is three miles of open sand and mud with no lighting, and should only be crossed during the daytime.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <p>The causeway (the tarmac road) is open for longer than the sands are safe to walk, so I show both. Handy if you're leaving one car on the island and driving the other back to the mainland before walking.</p>
         </div>
       </div>
+      <p class="data-note" id="data-note"></p>
+    </section>
 
-      <div class="field">
-        <label class="label">Preferred Time</label>
-        <div class="columns">
-          <div class="column">
-            <div class="field">
-              <label class="label is-small">Earliest Start Time:</label>
-              <div class="control">
-                <input class="input" type="time" id="timeFrom" value="09:00">
-              </div>
-            </div>
-          </div>
-          <div class="column">
-            <div class="field">
-              <label class="label is-small">Latest Start Time:</label>
-              <div class="control">
-                <input class="input" type="time" id="timeUntil" value="17:00">
-              </div>
-            </div>
+    <section class="before">
+      <h2>Before you go</h2>
+      <div class="links-grid">
+        <div class="link-card">
+          <h6>Tides &amp; weather</h6>
+          <div class="link-list">
+            <a href="https://holyislandcrossingtimes.northumberland.gov.uk/">Official crossing times</a>
+            <a href="https://www.yr.no/en/forecast/daily-table/2-11610810/">Forecast for Holy Island</a>
           </div>
         </div>
-        <p class="help">Use <em>Search</em> to find available crossings that begin within your preferred time range.</p>
-      </div>
-
-      <!-- Results section (initially hidden) -->
-      <div id="searchResults" class="box" style="display: none;">
-        <div class="level">
-          <div class="level-left">
-            <div class="level-item">
-              <div>
-                <p class="heading">Next Available Crossing</p>
-                <p class="title is-4" id="resultDate">-</p>
-                <p class="subtitle" id="resultDetails">-</p>
-              </div>
-            </div>
-          </div>
-          <div class="level-right">
-            <div class="level-item">
-              <div class="field is-grouped">
-                <p class="control">
-                  <button class="button" id="prevResult" disabled>
-                    <span class="icon"><i class="fas fa-chevron-left"></i></span>
-                    <span>Previous</span>
-                  </button>
-                </p>
-                <p class="control">
-                  <button class="button" id="nextResult" disabled>
-                    <span>Next</span>
-                    <span class="icon"><i class="fas fa-chevron-right"></i></span>
-                  </button>
-                </p>
-              </div>
-            </div>
+        <div class="link-card">
+          <h6>The walk</h6>
+          <div class="link-list">
+            <a href="https://holy-island.uk/how-to-walk-the-pilgrims-way-to-holy-island-minding-tide-times/">Belvue's walking guide</a>
+            <a href="https://en.wikipedia.org/wiki/Lindisfarne">Lindisfarne on Wikipedia</a>
           </div>
         </div>
-        <div class="has-text-centered">
-          <p class="help" id="resultCount">-</p>
+        <div class="link-card">
+          <h6>Getting back</h6>
+          <div class="link-list">
+            <a href="https://www.bordersbuses.co.uk/services/PERY/477?direction=inbound">Border Buses 477</a>
+            <span>Croft Cabs, Belford — 07803 496 278</span>
+          </div>
         </div>
       </div>
     </section>
-    <footer class="modal-card-foot">
-      <button class="button is-success" id="searchButton">
-        <span class="icon"><i class="fas fa-search"></i></span>
-        <span>Search</span>
-      </button>
-      <button class="button is-info" id="viewResult" style="display: none;">
-        <span class="icon"><i class="fas fa-eye"></i></span>
-        <span>View This Date</span>
-      </button>
-      <button class="button" id="cancelFilter">Cancel</button>
+
+    <footer class="site-footer">
+      <a href="https://mootparadox.com">mootParadox</a>
+      <a href="https://github.com/jonathancraddock/holyisland-cross/tree/main">GitHub</a>
+      <span>Information provided in good faith — your safety is your own responsibility.</span>
     </footer>
-  </div>
+
+  </main>
 </div>
 
-<div class="footer-bar">
-  <footer class="footer has-background-light">
-    <div class="content has-text-centered">
-      <p>
-        <i class="fas fa-globe"></i> <a href="https://mootparadox.com" target="_blank">mootParadox</a> | 
-        <i class="fab fa-github"></i> <a href="https://github.com/jonathancraddock/holyisland-cross/tree/main" target="_blank">GitHub</a>
-      </p>
-    </div>
-  </footer>
-</div>
-
-<script src="./pilgrim.js"></script>
-
+<script src="pilgrim.js"></script>
 </body>
-</html>    
+</html>
