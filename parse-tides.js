@@ -9,19 +9,6 @@
 const fs = require('fs');
 const path = require('path');
 
-// Helper functions for time conversion and BST detection
-function timeToMinutes(timeStr) {
-    const [hours, minutes] = timeStr.split(':').map(Number);
-    return hours * 60 + minutes;
-}
-
-function minutesToTime(minutes) {
-    const rounded = Math.round(minutes);
-    const hours = Math.floor(rounded / 60) % 24;
-    const mins = rounded % 60;
-    return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-}
-
 function isDateInBST(dateStr) {
     // BST runs from last Sunday in March to last Sunday in October
     const date = new Date(dateStr);
@@ -77,25 +64,15 @@ async function getSunData(date) {
         }
         
         // Convert times to 24-hour format (API returns times already in local timezone)
-        const sunrise = convertTimeFormat(data.results.sunrise);
-        const sunset = convertTimeFormat(data.results.sunset);
-        const dawn = convertTimeFormat(data.results.dawn);
-        const dusk = convertTimeFormat(data.results.dusk);
-        const solarNoon = convertTimeFormat(data.results.solar_noon);
-        const goldenHour = convertTimeFormat(data.results.golden_hour);
-        
-        // Calculate proper morning golden hour end (1 hour after sunrise)
-        const morningGoldenEnd = minutesToTime(timeToMinutes(sunrise) + 60);
-        
+        // Only the fields that can't be cheaply derived from sunrise/sunset are kept:
+        // dawn/dusk offsets vary with season/latitude, and the real evening golden-hour
+        // start isn't a fixed offset from sunset (morning's is, so it's derived client-side).
         return {
-            sunrise,
-            sunset,
-            dawn,
-            dusk,
-            solar_noon: solarNoon,
-            golden_hour_morning: `${sunrise}-${morningGoldenEnd}`,
-            golden_hour_evening: `${goldenHour}-${sunset}`,
-            day_length: data.results.day_length
+            sunrise: convertTimeFormat(data.results.sunrise),
+            sunset: convertTimeFormat(data.results.sunset),
+            dawn: convertTimeFormat(data.results.dawn),
+            dusk: convertTimeFormat(data.results.dusk),
+            goldenEveStart: convertTimeFormat(data.results.golden_hour)
         };
     } catch (error) {
         console.warn(`⚠️  Could not fetch sun data for ${date}: ${error.message}`);
@@ -223,40 +200,11 @@ async function parseTideData(htmlContent, monthYear) {
                     // Add small delay to be respectful to API
                     await new Promise(resolve => setTimeout(resolve, 100));
                 }
-                const sunData = sunDataCache[baseDate];
-                
-                // Enhance each safe period with daylight and photography data
-                const enhancedPeriods = safePeriods.map(period => {
-                    // Calculate midpoint time
-                    const startMinutes = timeToMinutes(period.start);
-                    let endMinutes = timeToMinutes(period.end);
-                    
-                    // Handle midnight crossover
-                    if (period.endDate !== period.startDate) {
-                        endMinutes += 24 * 60; // Add 24 hours
-                    }
-                    
-                    const midpointMinutes = (startMinutes + endMinutes) / 2;
-                    const midpointTime = minutesToTime(midpointMinutes % (24 * 60));
-                    
-                    // Determine if midpoint is in daylight
-                    let isDaylight = false;
-                    if (sunData) {
-                        const sunriseMinutes = timeToMinutes(sunData.sunrise);
-                        const sunsetMinutes = timeToMinutes(sunData.sunset);
-                        const midMinutes = timeToMinutes(midpointTime);
-                        isDaylight = midMinutes >= sunriseMinutes && midMinutes <= sunsetMinutes;
-                    }
-                    
-                    return {
-                        ...period,
-                        midpoint: midpointTime,
-                        daylight: isDaylight,
-                        photography: sunData || null
-                    };
-                });
-                
-                data[baseDate] = enhancedPeriods;
+
+                data[baseDate] = {
+                    sun: sunDataCache[baseDate] || null,
+                    safe: safePeriods.map(period => ({ start: period.start, end: period.end }))
+                };
             }
         }
     }
@@ -318,13 +266,15 @@ async function processFolder(folderPath) {
         fs.mkdirSync('./data');
     }
 
-    // Write unified file
+    // Write human-readable file (for reference/inspection) and a minified copy (used by the site)
     const outputFile = './data/tides.json';
+    const minFile = './data/tides.min.json';
     fs.writeFileSync(outputFile, JSON.stringify(outputData, null, 2));
+    fs.writeFileSync(minFile, JSON.stringify(outputData));
 
     console.log(`\n🎉 Combined tide data created:`);
     console.log(`📊 ${totalDays} total days across ${monthsProcessed.length} months`);
-    console.log(`📁 Output: ${outputFile}`);
+    console.log(`📁 Output: ${outputFile} (pretty), ${minFile} (minified, used by the site)`);
     
     // Show sample
     const firstDate = Object.keys(allData)[0];

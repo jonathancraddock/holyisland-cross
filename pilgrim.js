@@ -1,11 +1,41 @@
 // Store crossing data globally
+let currentCrossingDate = null;
 let currentCrossingData = [];
+let currentSunData = null;
 let filteredResults = [];
 let currentResultIndex = 0;
 let selectedCrossingIndex = -1; // Track which crossing was selected from modal
 let savedSelectedDays = []; // Remember selected days in modal
 let availableFirstDate = null; // First available date in tide data
 let availableLastDate = null; // Last available date in tide data
+
+// tides.min.json stores only sunrise/sunset/dawn/dusk/goldenEveStart per day;
+// everything else (midpoint, daylight, golden hour AM, day length, solar noon)
+// is cheap to derive from those, so it's computed here instead of stored.
+function timeToMinutes(timeStr) {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+}
+
+function minutesToTime(minutes) {
+    const wrapped = ((Math.round(minutes) % 1440) + 1440) % 1440;
+    const hours = Math.floor(wrapped / 60);
+    const mins = wrapped % 60;
+    return `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}`;
+}
+
+function computeMidpointMinutes(start, end) {
+    const startMinutes = timeToMinutes(start);
+    let endMinutes = timeToMinutes(end);
+    if (endMinutes < startMinutes) endMinutes += 1440; // crosses midnight
+    return (startMinutes + endMinutes) / 2;
+}
+
+function computeDaylight(midpointMinutes, sunData) {
+    if (!sunData) return false;
+    const mid = ((midpointMinutes % 1440) + 1440) % 1440;
+    return mid >= timeToMinutes(sunData.sunrise) && mid <= timeToMinutes(sunData.sunset);
+}
 
 // Function to format date in "Wed 29th Oct 2025" format
 function formatDateRange(dateStr) {
@@ -28,7 +58,7 @@ function formatDateRange(dateStr) {
 // Function to update date label with available range
 async function updateDateLabel() {
     try {
-        const response = await fetch('./data/tides.json');
+        const response = await fetch('./data/tides.min.json');
         if (!response.ok) {
             return; // Silently fail, keep original label
         }
@@ -68,48 +98,59 @@ function updateShowCrossingDate(dateValue) {
 async function loadTideData(selectedDate) {
     try {
         console.log('Loading tide data for date:', selectedDate.toISOString().split('T')[0]);
-        const response = await fetch('./data/tides.json');
+        const response = await fetch('./data/tides.min.json');
         if (!response.ok) {
             throw new Error('Tide data not available');
         }
-        
+
         const tideData = await response.json();
-        const dateStr = selectedDate.getFullYear() + '-' + 
-                        String(selectedDate.getMonth() + 1).padStart(2, '0') + '-' + 
+        const dateStr = selectedDate.getFullYear() + '-' +
+                        String(selectedDate.getMonth() + 1).padStart(2, '0') + '-' +
                         String(selectedDate.getDate()).padStart(2, '0'); // YYYY-MM-DD format in local time
         console.log('Looking for tide data for:', dateStr);
-        
+
         // Look for tide data for the selected date
-        if (tideData.data && tideData.data[dateStr] && tideData.data[dateStr].length > 0) {
-            currentCrossingData = tideData.data[dateStr];
+        currentCrossingDate = dateStr;
+        if (tideData.data && tideData.data[dateStr] && tideData.data[dateStr].safe.length > 0) {
+            currentSunData = tideData.data[dateStr].sun;
+            currentCrossingData = tideData.data[dateStr].safe;
             console.log('Found crossing data:', currentCrossingData);
-            
+
             updateCrossingResults();
             return true;
         } else {
             console.log('No tide data found for', dateStr);
+            currentSunData = null;
             currentCrossingData = [];
             updateCrossingResults();
         }
-        
+
         return false;
     } catch (error) {
         console.log('Could not load tide data:', error.message);
+        currentSunData = null;
         currentCrossingData = [];
-        updateCrossingOptions();
+        updateCrossingResults();
         return false;
     }
 }
 
 // Function to display daylight information
-function displayDaylightInfo(photographyData) {
+function displayDaylightInfo(sunData) {
     const daylightDiv = document.getElementById('daylightInfo');
-    
-    if (!photographyData) {
+
+    if (!sunData) {
         daylightDiv.innerHTML = '';
         return;
     }
-    
+
+    // Derived from sunrise/sunset (see computeMidpointMinutes/computeDaylight above for why)
+    const goldenHourMorning = `${sunData.sunrise}-${minutesToTime(timeToMinutes(sunData.sunrise) + 60)}`;
+    const goldenHourEvening = `${sunData.goldenEveStart}-${sunData.sunset}`;
+    const solarNoon = minutesToTime((timeToMinutes(sunData.sunrise) + timeToMinutes(sunData.sunset)) / 2);
+    const dayLengthMinutes = timeToMinutes(sunData.sunset) - timeToMinutes(sunData.sunrise);
+    const dayLength = `${Math.floor(dayLengthMinutes / 60)}h ${dayLengthMinutes % 60}m`;
+
     daylightDiv.innerHTML = `
         <table class="table">
             <thead>
@@ -120,35 +161,35 @@ function displayDaylightInfo(photographyData) {
             <tbody>
                 <tr>
                     <td>Dawn</td>
-                    <td><strong>${photographyData.dawn}</strong></td>
+                    <td><strong>${sunData.dawn}</strong></td>
                 </tr>
                 <tr>
                     <td>Sunrise</td>
-                    <td><strong>${photographyData.sunrise}</strong></td>
+                    <td><strong>${sunData.sunrise}</strong></td>
                 </tr>
                 <tr>
                     <td>Golden Hour (AM)</td>
-                    <td><strong>${photographyData.golden_hour_morning}</strong></td>
+                    <td><strong>${goldenHourMorning}</strong></td>
                 </tr>
                 <tr>
                     <td>Solar Noon</td>
-                    <td><strong>${photographyData.solar_noon}</strong></td>
+                    <td><strong>${solarNoon}</strong></td>
                 </tr>
                 <tr>
                     <td>Golden Hour (PM)</td>
-                    <td><strong>${photographyData.golden_hour_evening}</strong></td>
+                    <td><strong>${goldenHourEvening}</strong></td>
                 </tr>
                 <tr>
                     <td>Sunset</td>
-                    <td><strong>${photographyData.sunset}</strong></td>
+                    <td><strong>${sunData.sunset}</strong></td>
                 </tr>
                 <tr>
                     <td>Dusk</td>
-                    <td><strong>${photographyData.dusk}</strong></td>
+                    <td><strong>${sunData.dusk}</strong></td>
                 </tr>
                 <tr>
                     <td>Day Length</td>
-                    <td><strong>${photographyData.day_length}</strong></td>
+                    <td><strong>${dayLength}</strong></td>
                 </tr>
             </tbody>
         </table>
@@ -174,7 +215,7 @@ function updateCrossingResults() {
     let tableHTML = `
         <div class="message is-info">
             <div class="message-header">
-                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${formatDateRange(currentCrossingData[0].startDate)}</span>)</p>
+                <p>Crossing Times (<span id="showCrossingDate" class="has-text-weight-bold">${formatDateRange(currentCrossingDate)}</span>)</p>
             </div>
             <div class="message-body">
                 <table class="table is-fullwidth">
@@ -209,7 +250,7 @@ function updateCrossingResults() {
         const pilgrimOptimal = `${formatTime(optimalStart)} - ${formatTime(midpoint)}`;
         
         // Daylight icon
-        const daylightIcon = crossing.daylight ? '☀️' : '🌙';
+        const daylightIcon = computeDaylight(computeMidpointMinutes(crossing.start, crossing.end), currentSunData) ? '☀️' : '🌙';
         
         // Highlight selected crossing cell
         const pilgrimCellClass = selectedCrossingIndex === index ? ' class="highlightTime"' : '';
@@ -247,8 +288,8 @@ function updateCrossingResults() {
     // Note: Date is already correctly displayed in the table header from currentCrossingData[0].date
     
     // Display daylight information if available
-    if (currentCrossingData.length > 0 && currentCrossingData[0].photography) {
-        displayDaylightInfo(currentCrossingData[0].photography);
+    if (currentCrossingData.length > 0 && currentSunData) {
+        displayDaylightInfo(currentSunData);
     } else {
         displayDaylightInfo(null);
     }
@@ -295,13 +336,13 @@ function hideModal() {
 // Advanced search functionality
 async function performAdvancedSearch() {
     try {
-        const response = await fetch('./data/tides.json');
+        const response = await fetch('./data/tides.min.json');
         if (!response.ok) {
             throw new Error('Tide data not available');
         }
-        
+
         const tideData = await response.json();
-        
+
         // Get filter criteria
         const crossingType = 'pilgrim'; // Always use pilgrim crossing
         const dateFrom = new Date(document.getElementById('dateFrom').value + 'T00:00:00');
@@ -309,13 +350,7 @@ async function performAdvancedSearch() {
         const selectedDays = Array.from(document.querySelectorAll('input[type="checkbox"][id^="day-"]:checked')).map(cb => parseInt(cb.value));
         const timeFrom = document.getElementById('timeFrom').value;
         const timeUntil = document.getElementById('timeUntil').value;
-        
-        // Convert time strings to minutes for comparison
-        const timeToMinutes = timeStr => {
-            const [hours, minutes] = timeStr.split(':').map(Number);
-            return hours * 60 + minutes;
-        };
-        
+
         const minTime = timeToMinutes(timeFrom);
         const maxTime = timeToMinutes(timeUntil);
         
@@ -333,7 +368,8 @@ async function performAdvancedSearch() {
             
             
             // Check each crossing for this date
-            tideData.data[dateStr].forEach((crossing, index) => {
+            const sunData = tideData.data[dateStr].sun;
+            tideData.data[dateStr].safe.forEach((crossing, index) => {
                 let crossingTime, crossingLabel;
                 
                 if (crossingType === 'pilgrim') {
@@ -365,7 +401,7 @@ async function performAdvancedSearch() {
                         crossing: crossing,
                         crossingIndex: index,
                         crossingLabel: crossingLabel,
-                        daylight: crossing.daylight
+                        daylight: computeDaylight(computeMidpointMinutes(crossing.start, crossing.end), sunData)
                     });
                 }
             });
