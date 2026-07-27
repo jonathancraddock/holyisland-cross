@@ -38,8 +38,9 @@
     });
   }
   function el(id) { return document.getElementById(id); }
-  function longDate(d) {
-    return DAYNAMES[d.getDay()] + " " + d.getDate() + " " + d.toLocaleString("en-GB", { month: "long" });
+  function longDate(d, withYear) {
+    return DAYNAMES[d.getDay()] + " " + d.getDate() + " " + d.toLocaleString("en-GB", { month: "long" }) +
+      (withYear ? " " + d.getFullYear() : "");
   }
 
   /* Rough sunrise/sunset for dates the council data does not cover. */
@@ -300,9 +301,12 @@
     var dayCrossings = allCrossings.filter(function (c) { return c.dayTime === state.dayTime; });
     var dark = darkWindows(state.dayTime, dayCrossings);
     var day = new Date(state.dayTime);
-    var isToday = state.dayTime === midnight(new Date()).getTime();
+    var todayTime = midnight(new Date()).getTime();
+    var isToday = state.dayTime === todayTime;
+    var isPast = state.dayTime < todayTime;
 
-    el("day-heading").textContent = isToday ? "Today's crossings" : longDate(day);
+    el("day-heading").textContent = longDate(day, true) +
+      (isToday ? " (Today)" : isPast ? " (Historical Data)" : "");
     el("day-summary").textContent = dayCrossings.length === 1
       ? "One daylight crossing"
       : dayCrossings.length + " daylight crossings";
