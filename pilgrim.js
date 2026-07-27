@@ -13,6 +13,7 @@
 
   var real = null;        // the loaded council data
   var allCrossings = [];  // every daylight crossing we can build
+  var pendingShare = null; // {key} from a shared link's hash, consumed once data has settled
 
   var state = {
     dayTime: midnight(new Date()).getTime(),
@@ -22,7 +23,8 @@
     untilTime: "18:00",
     days: [true, false, false, false, false, false, true],
     results: null,
-    copied: null
+    copied: null,
+    highlightKey: null // crossing to pick out when arriving via a shared link
   };
 
   /* — small helpers — */
@@ -328,7 +330,8 @@
 
     var html = dayCrossings.map(function (c) {
       var shareLabel = state.copied === c.key ? "Link copied" : "Copy link";
-      return '<div class="card">' +
+      var cardClass = c.key === state.highlightKey ? "card card-highlight" : "card";
+      return '<div class="' + cardClass + '">' +
         '<div class="card-head">' +
           '<div class="card-time"><span class="big">' + c.startLabel + '</span><span class="set">set off</span></div>' +
           '<div class="tags"><span class="tag tag-part">' + c.partOfDay + '</span>' +
@@ -346,10 +349,13 @@
     }).join("");
 
     if (dayCrossings.length === 1) {
+      var vehicleText = dark.length
+        ? " But, the causeway is open again for vehicles " +
+          dark.map(function (w) { return w.causeLabel; }).join(" and ") + "."
+        : "";
       html += '<div class="placeholder"><span class="dash">—</span>' +
         '<div class="placeholder-body">' +
-        "<span>The Pilgrim's Way only has one safe crossing time today.</span>" +
-        (vehicleLines ? '<div class="vehicle-lines">' + vehicleLines + '</div>' : '') +
+        "<span>The Pilgrim's Way only has one safe daylight crossing time today." + vehicleText + "</span>" +
         '</div></div>';
     }
 
@@ -455,6 +461,20 @@
     });
   }
 
+  /* Arrived via a shared link (#c=...&t=...) — once data has settled, pick out
+     the specific crossing and scroll to it, instead of leaving the visitor at
+     the top of the page looking at an unrelated "next crossing". */
+  function applyPendingShare() {
+    if (!pendingShare) return;
+    var match = allCrossings.find(function (c) { return c.key === pendingShare.key; });
+    if (match) {
+      state.highlightKey = match.key;
+      renderDay();
+    }
+    pendingShare = null;
+    jumpTo("day-section");
+  }
+
   var copyTimer = null;
   function share(key) {
     var c = allCrossings.find(function (x) { return x.key === key; });
@@ -546,7 +566,7 @@
 
   function loadData(i) {
     i = i || 0;
-    if (i >= DATA_FILES.length) { buildCrossings(); render(); renderDataNote(); return; }
+    if (i >= DATA_FILES.length) { buildCrossings(); render(); renderDataNote(); applyPendingShare(); return; }
     fetch(DATA_FILES[i])
       .then(function (r) { return r.ok ? r.json() : null; })
       .catch(function () { return null; })
@@ -558,14 +578,18 @@
         buildCrossings();
         render();
         renderDataNote();
+        applyPendingShare();
       });
   }
 
   function start() {
-    var m = /[?#&]c=(\d{4}-\d{2}-\d{2})/.exec(location.hash + location.search);
+    var m = /[?#&]c=(\d{4}-\d{2}-\d{2})(?:&t=(\d{1,2}:\d{2}))?/.exec(location.hash + location.search);
     if (m) {
       var t = midnight(new Date(m[1] + "T12:00:00")).getTime();
-      if (!isNaN(t)) state.dayTime = t;
+      if (!isNaN(t)) {
+        state.dayTime = t;
+        pendingShare = { key: m[1] + "T" + (m[2] || "") };
+      }
     }
     bind();
     buildCrossings();
