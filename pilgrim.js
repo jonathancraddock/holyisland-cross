@@ -7,6 +7,7 @@
 
   var MIN = 60000, DAY = 86400000, CYCLE = 745.2 * MIN;
   var WALK = 90; // minutes allowed for the walk
+  var ESTIMATE_DAYS = 120; // how far past the council data the tidal-cycle estimate reaches
   var DAYNAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   var DATA_FILES = ["data/tides.min.json", "data/tides.json"];
 
@@ -166,7 +167,7 @@
 
       // Fill the next few months from the tidal cycle where there is no council data.
       var from = midnight(new Date()).getTime() - DAY;
-      var until = from + 120 * DAY;
+      var until = from + ESTIMATE_DAYS * DAY;
       var seed = Date.parse("2026-07-25T04:05:00");
       var n0 = Math.ceil((from - seed) / CYCLE);
       for (var i = 0; i < 300; i++) {
@@ -211,6 +212,15 @@
       out.push({ startMs: w.startMs, causeLabel: fmt(new Date(w.startMs)) + "–" + fmt(new Date(w.endMs)) });
     });
     return out.sort(function (a, b) { return a.startMs - b.startMs; });
+  }
+
+  /* Is this date covered by either real council data or the tidal-cycle estimate? */
+  function hasSourceData(dayTime) {
+    var d = real && real.data;
+    if (d && d[iso(new Date(dayTime))]) return true;
+    var from = midnight(new Date()).getTime() - DAY;
+    var until = from + ESTIMATE_DAYS * DAY;
+    return dayTime >= from && dayTime < until;
   }
 
   /* — markup — */
@@ -345,9 +355,12 @@
 
     el("day-cards").innerHTML = html;
     el("day-empty").innerHTML = dayCrossings.length === 0
-      ? '<div class="empty"><span>No daylight crossing on this date — the safe windows fall after dark. ' +
-        'Try the day before or after.</span>' +
-        (vehicleLines ? '<div class="vehicle-lines">' + vehicleLines + '</div>' : '') + '</div>'
+      ? (hasSourceData(state.dayTime)
+          ? '<div class="empty"><span>No daylight crossing on this date — the safe windows fall after dark. ' +
+            'Try the day before or after.</span>' +
+            (vehicleLines ? '<div class="vehicle-lines">' + vehicleLines + '</div>' : '') + '</div>'
+          : '<div class="empty"><span>No tide information available for the selected date.' +
+            (real && real.range ? ' Data available from ' + real.range + '.' : '') + '</span></div>')
       : "";
   }
 
